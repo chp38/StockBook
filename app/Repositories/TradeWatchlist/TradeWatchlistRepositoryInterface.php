@@ -8,8 +8,7 @@
 
 namespace App\Repositories\TradeWatchlist;
 
-
-class TradeWatchlistRepositoryInterface
+interface TradeWatchlistRepositoryInterface
 {
 
 }
