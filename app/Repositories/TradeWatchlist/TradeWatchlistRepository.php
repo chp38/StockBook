@@ -8,7 +8,18 @@
 
 namespace App\Repositories\TradeWatchlist;
 
-class TradeWatchlistRepository implements TradeWatchlistRepositoryInterface
-{
+use App\Model\TradeWatchlist;
+use App\Repositories\RepositoryInterface;
+use App\Repositories\EloquentRepository;
 
+class TradeWatchlistRepository extends EloquentRepository implements RepositoryInterface
+{
+    /**
+     * TradeWatchlistRepository constructor.
+     * @param TradeWatchlist $model
+     */
+    public function __construct(TradeWatchlist $model)
+    {
+        parent::__construct($model);
+    }
 }

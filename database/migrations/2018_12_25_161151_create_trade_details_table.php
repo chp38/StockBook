@@ -15,12 +15,17 @@ class CreateTradeDetailsTable extends Migration
     {
         Schema::create('trade_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('currency_pair_id');//Fk - currency_pair
-            $table->foreign('currency_pair_id')->references('id')->on('currency_pairs');
+            $table->unsignedInteger('currency_pair_id')->nullable();//Fk - currency_pair
+            $table->unsignedInteger('user_id')->nullable();//Fk - user_id
             $table->float('entry_price');//Entry_price
             $table->float('exit_price')->nullable();//Exit_price
             $table->integer('pip_difference')->nullable();//Pip_difference
             $table->timestamps();
+        });
+
+        Schema::table('trade_details', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('currency_pair_id')->references('id')->on('currency_pairs');
         });
     }
 
