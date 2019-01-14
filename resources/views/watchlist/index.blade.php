@@ -14,7 +14,7 @@
         @foreach($watchlist as $item)
             <div class="card border-primary mb-3" style="max-width: 18rem;">
                 <div class="card-header">
-                    <a href="watchlist/{{$item->id}}">{{ $item->detail->pair->name }}</a>
+                    <a href="/watchlist/{{$item->id}}">{{ $item->detail->pair->name }}</a>
                 </div>
                 <div class="card-body text-primary">
                     <h5 class="card-title">Primary card title</h5>

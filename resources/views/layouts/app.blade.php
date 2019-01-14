@@ -72,7 +72,7 @@
     </div>
 </div>
 
-<script src="js/app.js"></script>
+<script src="/js/app.js"></script>
 
 {{--<!-- Bootstrap core JavaScript-->
 <script src="vendor/jquery/jquery.min.js"></script>
