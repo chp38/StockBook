@@ -21,4 +21,13 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('watchlist', 'TradeWatchlistController');
 
+    Route::get('/currency/pairs', 'CurrencyPairsController@index')->name('currencyPairs.index');
+    Route::get('/currency/pairs/{id}', 'CurrencyPairsController@index')->name('currencyPairs.show');
+
+    Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+
+});
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    //Routes for currency pairs admin page - add/remove/edit them
 });
