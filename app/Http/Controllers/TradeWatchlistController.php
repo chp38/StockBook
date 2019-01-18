@@ -2,10 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\WatchlistService;
 use Illuminate\Http\Request;
 
 class TradeWatchlistController extends Controller
 {
+    /**
+     * @var WatchlistService
+     */
+    protected $watchlistService;
+
+    /**
+     * TradeWatchlistController constructor.
+     * @param WatchlistService $service
+     */
+    public function __construct(WatchlistService $service)
+    {
+        $this->watchlistService = $service;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +28,9 @@ class TradeWatchlistController extends Controller
      */
     public function index()
     {
-        //
+        $watchlist = $this->watchlistService->getAllWatchlist();
+
+        return view('watchlist.index', ['watchlist' => $watchlist]);
     }
 
     /**
@@ -45,7 +62,9 @@ class TradeWatchlistController extends Controller
      */
     public function show($id)
     {
-        //
+        $watchlistItem = $this->watchlistService->getWatchlistItem($id);
+
+        return view('watchlist.item', ['watchlistItem' => $watchlistItem]);
     }
 
     /**
