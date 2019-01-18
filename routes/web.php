@@ -27,3 +27,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
 });
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    //Routes for currency pairs admin page - add/remove/edit them
+});
