@@ -10,7 +10,8 @@
         <li class="breadcrumb-item active">Watchlist</li>
     </ol>
 
-    <div class="card-deck">
+    <div class="card-deck" id="app">
+        <!--<example-component></example-component>-->
         @foreach($watchlist as $item)
             <div class="card border-primary mb-3" style="max-width: 18rem;">
                 <div class="card-header">
