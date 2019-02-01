@@ -226,4 +226,12 @@ return [
 
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Alpha Vantage API base URL
+    |--------------------------------------------------------------------------
+    */
+
+    'alpha_vantage_url' => env('ALPHA_VANTAGE_URL', 'https://www.alphavantage.co/'),
+    'alpha_vantage_key' => env('ALPHA_VANTAGE_KEY', 'YC8VVZQTBQZPJG27'),
 ];
