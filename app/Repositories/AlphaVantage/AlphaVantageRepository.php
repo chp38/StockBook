@@ -41,7 +41,9 @@ class AlphaVantageRepository implements AlphaVantageInterface
         $this->baseUrl = config('app.alpha_vantage_url');
         $this->key = config('app.alpha_vantage_key');
 
-        $this->client = $client = new Client(['base_uri' => $this->baseUrl]);
+        $this->client = $client = new Client([
+            'base_uri' => $this->baseUrl
+        ]);
     }
 
     /**
@@ -62,4 +64,31 @@ class AlphaVantageRepository implements AlphaVantageInterface
         // TODO: better way to do this?
         return $rate['Realtime Currency Exchange Rate']['5. Exchange Rate'];
     }
-}
+
+    /**
+     * @param String $pair
+     * @param $interval
+     * @return mixed
+     */
+    public function getIntraDayInformation(String $pair, $interval)
+    {
+        // TODO: Implement getIntraDayInformation() method.
+    }
+
+    /**
+     * @param String $pair
+     * @return mixed
+     */
+    public function getDailyInformation(String $pair)
+    {
+        // TODO: Implement getDailyInformation() method.
+    }
+
+    /**
+     * @param String $pair
+     * @return mixed
+     */
+    public function getWeeklyInformation(String $pair)
+    {
+        // TODO: Implement getWeeklyInformation() method.
+}}

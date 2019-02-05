@@ -21,4 +21,23 @@ interface AlphaVantageInterface
      * @return mixed
      */
     public function getCurrentPriceInformation(String $pair);
+
+    /**
+     * @param String $pair
+     * @param $interval
+     * @return mixed
+     */
+    public function getIntraDayInformation(String $pair, $interval);
+
+    /**
+     * @param String $pair
+     * @return mixed
+     */
+    public function getDailyInformation(String $pair);
+
+    /**
+     * @param String $pair
+     * @return mixed
+     */
+    public function getWeeklyInformation(String $pair);
 }
