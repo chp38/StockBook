@@ -25,7 +25,7 @@ class WatchlistService
     {
         $this->watchlistRepo = $repo;
     }
-
+    
     /**
      * Get all the current watchlist items
      * @return mixed
