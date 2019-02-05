@@ -18,6 +18,11 @@ class CurrencyPairsController extends Controller
         $this->service = $service;
     }
 
+    /**
+    * Show all the currency pairs
+    *
+    * @return \Illuminate\Http\Response
+    */
     public function index()
     {
         $currencyPairs = $this->service->getAllPairs();

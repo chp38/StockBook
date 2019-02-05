@@ -17,6 +17,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('auth:api')->get('/currency/rate/{pair}', function (Request $request) {
-    //Function call to return the price of the given currency
-});
+Route::apiResource('currency/pairs', 'Api\CurrencyPairsApiController')->except([
+    'store', 'update', 'destroy'
+]);
