@@ -9,6 +9,7 @@
 namespace App\Services;
 
 
+use App\Model\CurrencyPair;
 use App\Repositories\AlphaVantage\AlphaVantageInterface;
 use App\Repositories\CurrencyPairs\CurrencyPairsRepository;
 
@@ -67,6 +68,10 @@ class CurrencyPairService
     {
         $pair = $this->repository->find($id);
 
-        return $this->alphaVantage->getCurrentPriceInformation($pair->name);
+        if ($pair instanceof CurrencyPair) {
+            return $this->alphaVantage->getCurrentPriceInformation($pair->name);
+        }
+
+        return false;
     }
 }

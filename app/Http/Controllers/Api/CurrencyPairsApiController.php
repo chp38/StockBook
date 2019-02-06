@@ -38,6 +38,18 @@ class CurrencyPairsApiController extends Controller
     {
         $price = $this->service->getPairPrice($id);
 
-        return response()->json(['price' => $price]);
+        if ($price) {
+            return response()->json([
+                'price' => $price,
+                'error' => false
+            ]);
+        }
+
+        return response()->json([
+            'price' => null,
+            'error' => true,
+            'description' =>
+                'Pair not found'
+        ]);
     }
 }
