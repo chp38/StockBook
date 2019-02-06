@@ -7,6 +7,8 @@
 
 require('./bootstrap');
 require('./sb-admin');
+Chart = require('chart.js');
+require('./chart');
 
  // window.Vue = require('vue');
 

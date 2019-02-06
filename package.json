@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.5.21"
     },
     "dependencies": {
+        "chart.js": "^2.7.3",
         "fontawesome": "^4.7.2",
         "startbootstrap-sb-admin": "^5.0.2"
     }
