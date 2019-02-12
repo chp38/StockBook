@@ -72,7 +72,31 @@ class AlphaVantageRepository implements AlphaVantageInterface
      */
     public function getIntraDayInformation(String $pair, $interval)
     {
-        // TODO: Implement getIntraDayInformation() method.
+        $currencies = explode('/', $pair);
+
+        $url = "query?function=FX_INTRADAY&from_symbol=$currencies[0]&to_symbol=$currencies[1]&interval=$interval&apikey=$this->key";
+
+        $response = $this->client->get($url);
+        $response = json_decode($response->getBody(), true);
+        $prices = $response["Time Series FX ($interval)"];
+
+        $timePrices = [];
+        foreach($prices as $dateTime => $price) {
+            //$time = explode(" ", $dateTime);
+            $data = [
+                'date' => $dateTime,
+                'open' => $price['1. open'],
+                'high' => $price['2. high'],
+                'low' => $price['3. low'],
+                'close' => $price['4. close']
+            ];
+
+            array_push($timePrices, $data);
+        }
+
+        $intraDay = ['data' => $timePrices];
+
+        return $intraDay;
     }
 
     /**

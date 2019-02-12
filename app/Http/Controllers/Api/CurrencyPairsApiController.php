@@ -52,4 +52,19 @@ class CurrencyPairsApiController extends Controller
                 'Pair not found'
         ]);
     }
+
+    /**
+     * Get the current intra-day prices of a pair
+     *
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getPairPrices($id)
+    {
+        $intraDay = $this->service->getPairPrices($id);
+
+        return response()->json([
+            'prices' => $intraDay['data'],
+        ]);
+    }
 }

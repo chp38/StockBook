@@ -68,8 +68,9 @@
             <i class="fas fa-chart-area"></i>
             Area Chart Example</div>
         <div class="card-body">
-            <canvas id="myAreaChart" width="100%" height="30">
-            </canvas>
+
+          <div id="chartdiv" style="height:600px;" currency-pair="5"></div>
+
         </div>
         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
     </div>
