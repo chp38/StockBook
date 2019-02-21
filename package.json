@@ -28,6 +28,7 @@
         "@amcharts/amcharts4-geodata": "^4.1.1",
         "chart.js": "^2.7.3",
         "fontawesome": "^4.7.2",
-        "startbootstrap-sb-admin": "^5.0.2"
+        "startbootstrap-sb-admin": "^5.0.2",
+        "techan": "^0.8.0"
     }
 }
