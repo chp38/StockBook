@@ -20,3 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::apiResource('currency/pairs', 'Api\CurrencyPairsApiController')->except([
     'store', 'update', 'destroy'
 ]);
+
+Route::get('currency/pairs/prices/{id}', 'Api\CurrencyPairsApiController@getPairPrices');

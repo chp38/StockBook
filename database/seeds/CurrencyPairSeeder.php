@@ -11,6 +11,20 @@ class CurrencyPairSeeder extends Seeder
      */
     public function run()
     {
-        factory('App\Model\CurrencyPair')->create();
+        factory('App\Model\CurrencyPair')->create([
+            'name' => 'USD/JPY'
+        ]);
+
+        factory('App\Model\CurrencyPair')->create([
+            'name' => 'GBP/USD'
+        ]);
+
+        factory('App\Model\CurrencyPair')->create([
+            'name' => 'AUD/CAD'
+        ]);
+
+        factory('App\Model\CurrencyPair')->create([
+            'name' => 'EUR/USD'
+        ]);
     }
 }

@@ -27,7 +27,9 @@ class CurrencyPairService
 
     /**
      * CurrencyPairService constructor.
-     * @param  CurrencyPairsRepository  $repository
+     *
+     * @param  CurrencyPairsRepository $repository
+     * @param AlphaVantageInterface    $alphaVantage
      */
     public function __construct(
       CurrencyPairsRepository $repository,
@@ -70,6 +72,23 @@ class CurrencyPairService
 
         if ($pair instanceof CurrencyPair) {
             return $this->alphaVantage->getCurrentPriceInformation($pair->name);
+        }
+
+        return false;
+    }
+
+    /**
+     * Get the intra-day prices of currency pairs
+     *
+     * @param $id
+     * @return bool|mixed
+     */
+    public function getPairPrices($id)
+    {
+        $pair = $this->repository->find($id);
+
+        if ($pair instanceof CurrencyPair) {
+            return $this->alphaVantage->getIntraDayInformation($pair->name, '5min');
         }
 
         return false;
