@@ -85,8 +85,11 @@
           @endif
           @if($mainPair != null)
             <div class="dash-actions">
-              <button id="home-add-watchlist" pairId="{{ $mainPair->id }}" class="btn btn-primary">Add Watchlist</button>
-              <button id="home-add-trades" pairId="{{ $mainPair->id }}" class="btn btn-success">Add Trades</button>
+              <form method="POST">
+                <input id="pair-id" type="hidden" name="pair-id" value="{{ $mainPair->id }}">
+                <button name="watchlist" id="home-add-watchlist" class="btn btn-primary">Add Watchlist</button>
+                <button name="trades" id="home-add-trades" class="btn btn-success">Add Trades</button>
+              </form>
             </div>
           @endif
         </div>
