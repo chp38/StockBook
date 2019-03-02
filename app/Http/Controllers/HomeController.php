@@ -2,18 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\CurrencyPairService;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     /**
+     * @var CurrencyPairService
+     */
+    protected $currencyPairService;
+
+    /**
      * Create a new controller instance.
      *
-     * @return void
+     * @param CurrencyPairService $currencyPairService
      */
-    public function __construct()
+    public function __construct(CurrencyPairService $currencyPairService)
     {
-        //
+        $this->currencyPairService = $currencyPairService;
     }
 
     /**
@@ -23,6 +29,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard.home');
+        $pairs = $this->currencyPairService->getAllPairs();
+
+        if ($pairs->count() > 0) {
+            $mainPair = $pairs->first();
+        } else {
+            $mainPair = null;
+        }
+
+        return view('dashboard.home', ['pairs' => $pairs, 'mainPair' => $mainPair]);
     }
 }

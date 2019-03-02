@@ -12,6 +12,8 @@ namespace App\Services;
 use App\Model\CurrencyPair;
 use App\Repositories\AlphaVantage\AlphaVantageInterface;
 use App\Repositories\CurrencyPairs\CurrencyPairsRepository;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 class CurrencyPairService
 {
@@ -42,7 +44,8 @@ class CurrencyPairService
 
     /**
      * Return all the currency pairs
-     * @return  mixed
+     *
+     * @return  Collection
      */
     public function getAllPairs()
     {
@@ -53,11 +56,11 @@ class CurrencyPairService
     * Get the current price for a given currency pair
     *
     * @param  int  id
-    * @return  CurrenyPair
+    * @return \App|Model|CurrencyPair
     */
     public function getCurrencyPair($id)
     {
-        $this->repository->find($id);
+        return $this->repository->find($id);
     }
 
     /**
