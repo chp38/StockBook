@@ -52342,8 +52342,7 @@ function changeHomeChart() {
 function setNewHomepageValues() {
   var value = $("#home-chart-select").val();
   document.getElementById("chartdiv").setAttribute('currency-pair', value);
-  document.getElementById('home-add-watchlist').setAttribute('pairId', value);
-  document.getElementById('home-add-trades').setAttribute('pairId', value);
+  $('#pair-id').val(value);
 }
 /**
  * Initialize the chart if the correct element with id exists
