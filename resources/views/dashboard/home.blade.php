@@ -61,6 +61,32 @@
         </div>
     </div>
 
+      @if ($errors->any())
+        <div class="alert alert-danger">
+          <ul>
+            @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
+      @endif
+
+      @if (session()->has('error'))
+        <div class="alert alert-danger">
+          <ul>
+            {{ session('error') }}
+          </ul>
+        </div>
+      @endif
+
+      @if (session()->has('success'))
+        <div class="alert alert-success">
+          <ul>
+            {{ session('success') }}
+          </ul>
+        </div>
+      @endif
+
     <!-- Area Chart Example-->
     <div class="card mb-3">
         <div class="card-header">
