@@ -21,7 +21,6 @@ class CreateCurrentWatchlistTable extends Migration
             $table->float('low_stop_watch')->nullable();//Low_stop
             $table->unsignedInteger('trade_details_id');//Trade_details_id
             $table->foreign('trade_details_id')->references('id')->on('trade_details')->onDelete('cascade');
-            $table->boolean('active')->default(true);//Active
             $table->timestamps();
         });
     }
