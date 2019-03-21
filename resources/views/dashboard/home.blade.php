@@ -87,7 +87,7 @@
             <div class="dash-actions">
               <form method="POST">
                 {{ csrf_field() }}
-                <input id="pair-id" type="hidden" name="pair-id" value="{{ $mainPair->id }}">
+                <input id="pair_id" type="hidden" name="pair_id" value="{{ $mainPair->id }}">
                 <button name="list" value="watchlist" id="home-add-watchlist" class="btn btn-primary">Add Watchlist</button>
                 <button name="list" value="trades" id="home-add-trades" class="btn btn-success">Add Trades</button>
               </form>
