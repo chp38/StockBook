@@ -26,5 +26,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind('App\Repositories\AlphaVantage\AlphaVantageInterface',
             'App\Repositories\AlphaVantage\AlphaVantageRepository'
         );
+
+        /*$this->app->bind('App\Repositories\AlphaVantage\AlphaVantageInterface', function () {
+           $baseRepo = new \App\Repositories\AlphaVantage\AlphaVantageRepository();
+           $cachingRepo = new \App\Repositories\AlphaVantage\CachingAlphaVantageRepository($baseRepo, $this->app['cache.store']);
+           return $cachingRepo;
+       });*/
     }
 }
