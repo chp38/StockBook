@@ -39,4 +39,13 @@ class HomeController extends Controller
 
         return view('dashboard.home', ['pairs' => $pairs, 'mainPair' => $mainPair]);
     }
+
+    /**
+    * Add a currency pair to a given list type
+    *
+    */
+    public function addPair(Request $request)
+    {
+        dd($request);
+    }
 }

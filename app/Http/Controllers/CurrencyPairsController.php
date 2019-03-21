@@ -11,6 +11,7 @@ class CurrencyPairsController extends Controller
 
     /**
      * CurrencyPairsController constructor.
+     *
      * @param CurrencyPairService $service
      */
     public function __construct(CurrencyPairService $service)
@@ -24,6 +25,18 @@ class CurrencyPairsController extends Controller
     * @return \Illuminate\Http\Response
     */
     public function index()
+    {
+        $currencyPairs = $this->service->getAllPairs();
+
+        return view('pairs.index', ['currencyPairs' => $currencyPairs]);
+    }
+
+    /**
+    * Show a single currencypair
+    *
+    * @return /Illuminate/Http/Response
+    */
+    public function show($id)
     {
         $currencyPairs = $this->service->getAllPairs();
 
