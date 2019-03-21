@@ -10,20 +10,17 @@
 
 use App\Repositories\TradeWatchlist\TradeWatchlistRepository;
 
-class ActiveTradeService extends ListService
+class WatchlistService extends ListService
 {
     /**
-     * @var TradeWatchlistRepository
-     */
-    protected $watchlistRepo;
-
-    /**
-     * ActiveTradeService constructor.
+     * WatchlistService constructor.
      * @param TradeWatchlistRepository $repo
      */
     public function __construct(TradeWatchlistRepository $repo)
     {
-        $this->watchlistRepo = $repo;
+        parent::__construct($repo);
+
+        $this->repository = $repo;
     }
 
     /**
@@ -32,7 +29,7 @@ class ActiveTradeService extends ListService
      */
     public function getAllWatchlist()
     {
-        return $this->watchlistRepo->all();
+        return $this->repository->all();
     }
 
     /**
@@ -42,6 +39,6 @@ class ActiveTradeService extends ListService
      */
     public function getWatchlistItem($id)
     {
-        return $this->watchlistRepo->find($id);
+        return $this->repository->find($id);
     }
 }
