@@ -29,7 +29,7 @@ class TradeWatchlistController extends Controller
      */
     public function index()
     {
-        $watchlist = $this->watchlistService->getAllWatchlist();
+        $watchlist = $this->watchlistService->getAll();
 
         return view('watchlist.index', ['watchlist' => $watchlist]);
     }

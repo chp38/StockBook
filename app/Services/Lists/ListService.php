@@ -26,4 +26,13 @@ class ListService
     {
         $this->repository = $repository;
     }
+
+    /**
+     * Get all the list items
+     * @return mixed
+     */
+    public function getAll()
+    {
+        return $this->repository->all();
+    }
 }

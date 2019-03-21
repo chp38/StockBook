@@ -24,15 +24,6 @@ class WatchlistService extends ListService
     }
 
     /**
-     * Get all the current watchlist items
-     * @return mixed
-     */
-    public function getAllWatchlist()
-    {
-        return $this->repository->all();
-    }
-
-    /**
      * Get a single watchlist item by id
      * @param $id
      * @return mixed
