@@ -6,11 +6,11 @@
  * Time: 21:19
  */
 
- namespace App\Services\List;
+ namespace App\Services\Lists;
 
 use App\Repositories\TradeWatchlist\TradeWatchlistRepository;
 
-class WatchlistService
+class ActiveTradeService extends ListService
 {
     /**
      * @var TradeWatchlistRepository
@@ -18,7 +18,7 @@ class WatchlistService
     protected $watchlistRepo;
 
     /**
-     * WatchlistService constructor.
+     * ActiveTradeService constructor.
      * @param TradeWatchlistRepository $repo
      */
     public function __construct(TradeWatchlistRepository $repo)
