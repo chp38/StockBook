@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\CurrencyPairService;
+use App\Services\Lists\ListService;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -13,13 +14,20 @@ class HomeController extends Controller
     protected $currencyPairService;
 
     /**
+     * @var ListService
+     */
+    protected $listService;
+
+    /**
      * Create a new controller instance.
      *
      * @param CurrencyPairService $currencyPairService
+     * @param ListService         $listService
      */
-    public function __construct(CurrencyPairService $currencyPairService)
+    public function __construct(CurrencyPairService $currencyPairService, ListService $listService)
     {
         $this->currencyPairService = $currencyPairService;
+        $this->listService = $listService;
     }
 
     /**
@@ -41,12 +49,19 @@ class HomeController extends Controller
     }
 
     /**
-    * Add a currency pair to a given list type
-    *
-    * @param Request
-    */
+     * Add a currency pair to a given list type
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function addPair(Request $request)
     {
-        dd($request);
+        $detail = $this->listService->addFromHomepage($request->list, $request->pair_id);
+
+        if ($detail != null) {
+            return redirect()->back()->with('success', "Successfully added to $request->list");
+        }
+
+        return redirect()->back()->with('error', "Something went wrong adding to list!");
     }
 }
