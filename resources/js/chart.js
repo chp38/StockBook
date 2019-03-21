@@ -24,7 +24,7 @@ function setNewHomepageValues()
   var value = $("#home-chart-select").val();
 
   document.getElementById("chartdiv").setAttribute('currency-pair', value);
-  $('#pair-id').val(value);
+  $('#pair_id').val(value);
 }
 
 /**
