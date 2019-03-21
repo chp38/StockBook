@@ -6,7 +6,7 @@
  * Time: 21:19
  */
 
-namespace App\Services;
+ namespace App\Services\List;
 
 use App\Repositories\TradeWatchlist\TradeWatchlistRepository;
 
@@ -25,7 +25,7 @@ class WatchlistService
     {
         $this->watchlistRepo = $repo;
     }
-    
+
     /**
      * Get all the current watchlist items
      * @return mixed

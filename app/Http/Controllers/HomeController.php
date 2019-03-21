@@ -43,6 +43,7 @@ class HomeController extends Controller
     /**
     * Add a currency pair to a given list type
     *
+    * @param Request
     */
     public function addPair(Request $request)
     {
