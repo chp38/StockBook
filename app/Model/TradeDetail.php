@@ -7,6 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class TradeDetail extends Model
 {
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'currency_pair_id',
+        'user_id',
+        'entry_price'
+    ];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user() {
