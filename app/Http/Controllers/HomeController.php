@@ -59,6 +59,7 @@ class HomeController extends Controller
     {
         $validator = $request->validate([
             'pair_id' => ['required', 'string', new CurrentlyListed],
+            'list'    => 'required',
         ]);
 
         $detail = $this->listService->addFromHomepage($request->list, $request->pair_id);
