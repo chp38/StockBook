@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Rules\CurrentlyListed;
 use App\Services\CurrencyPairService;
 use App\Services\Lists\ListService;
 use Illuminate\Http\Request;
@@ -49,13 +50,17 @@ class HomeController extends Controller
     }
 
     /**
-     * Add a currency pair to a given list type
+     * Add a currency pair to a given list type - ensure it doesn't already exist in the list
      *
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function addPair(Request $request)
     {
+        $validator = $request->validate([
+            'pair_id' => ['required', 'string', new CurrentlyListed],
+        ]);
+
         $detail = $this->listService->addFromHomepage($request->list, $request->pair_id);
 
         if ($detail != null) {
