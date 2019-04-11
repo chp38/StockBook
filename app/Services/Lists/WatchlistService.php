@@ -44,14 +44,16 @@ class WatchlistService extends ListService
      */
     public function addCurrencyPair($pairId)
     {
+        $watchlist = $this->repository->create([
+
+        ]);
+
         $detail = $this->tradeDetails->create([
             'currency_pair_id' => (int)$pairId,
             'user_id' => Auth::user()->id,
-            'entry_price' => 1.20
-        ]);
-
-        $watchlist = $this->repository->create([
-            'trade_details_id' => $detail->id
+            'entry_price' => 1.20,
+            'detailable_id' => $watchlist->id,
+            'detailable_type' => 'App\Model\TradeWatchlist'
         ]);
 
         return $watchlist;

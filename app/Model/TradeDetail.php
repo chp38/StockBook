@@ -14,7 +14,9 @@ class TradeDetail extends Model
     protected $fillable = [
         'currency_pair_id',
         'user_id',
-        'entry_price'
+        'entry_price',
+        'detailable_id',
+        'detailable_type'
     ];
 
     /**
@@ -29,5 +31,13 @@ class TradeDetail extends Model
      */
     public function pair() {
         return $this->belongsTo('App\Model\CurrencyPair', 'currency_pair_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
+    public function detailable()
+    {
+        return $this->morphTo();
     }
 }

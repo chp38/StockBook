@@ -33,6 +33,7 @@ class CurrentlyListed implements Rule
             ->where('currency_pair_id', $value)
             ->first();
 
+
         return !$trade instanceof TradeDetail;
     }
 
@@ -43,6 +44,6 @@ class CurrentlyListed implements Rule
      */
     public function message()
     {
-        return 'The Currency Pair is already in the List!';
+        return 'The Currency Pair is already being traded or watched!';
     }
 }

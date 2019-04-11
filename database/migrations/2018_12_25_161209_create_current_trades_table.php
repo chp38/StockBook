@@ -19,8 +19,6 @@ class CreateCurrentTradesTable extends Migration
             $table->float('stop_loss')->nullable();//Stop_loss
             $table->float('take_profit')->nullable();//Take_profit
             $table->boolean('trailing_trade')->default(false);//Trailing_trade
-            $table->unsignedInteger('trade_details_id');//Trade_details_id
-            $table->foreign('trade_details_id')->references('id')->on('trade_details')->onDelete('cascade');
             $table->timestamps();
         });
     }
