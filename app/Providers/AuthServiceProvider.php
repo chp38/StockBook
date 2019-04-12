@@ -25,6 +25,6 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('is-admin', 'App\Policies\CurrencyPairPolicy@isAdmin');
     }
 }
