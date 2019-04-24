@@ -26,6 +26,8 @@ abstract class EloquentRepository implements RepositoryInterface
     }
 
     /**
+     * Find by id
+     *
      * @param $id
      * @return mixed
      */
@@ -35,6 +37,8 @@ abstract class EloquentRepository implements RepositoryInterface
     }
 
     /**
+     * Create a new record
+     *
      * @param array $data
      * @return mixed
      */
@@ -44,6 +48,8 @@ abstract class EloquentRepository implements RepositoryInterface
     }
 
     /**
+     * Update by a given id, an array of values
+     *
      * @param $id
      * @param array $data
      * @return mixed
@@ -66,6 +72,8 @@ abstract class EloquentRepository implements RepositoryInterface
     }
 
     /**
+     * Delete by id
+     *
      * @param $id
      * @return mixed
      */
@@ -75,6 +83,8 @@ abstract class EloquentRepository implements RepositoryInterface
     }
 
     /**
+     * Get all of the results
+     *
      * @return mixed
      */
     public function all()
@@ -83,6 +93,8 @@ abstract class EloquentRepository implements RepositoryInterface
     }
 
     /**
+     * Where Id is in
+     *
      * @param array $ids
      * @return mixed
      */
@@ -91,6 +103,13 @@ abstract class EloquentRepository implements RepositoryInterface
         return $this->model->whereIn($ids);
     }
 
+    /**
+     * Find where a particular field is set to a given value
+     *
+     * @param $field
+     * @param $value
+     * @return mixed
+     */
     public function findWhere($field, $value)
     {
         return $this->model->where($field, $value)->get();

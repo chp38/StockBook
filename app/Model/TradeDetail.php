@@ -7,6 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 class TradeDetail extends Model
 {
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'currency_pair_id',
+        'user_id',
+        'entry_price',
+        'detailable_id',
+        'detailable_type'
+    ];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user() {
@@ -18,5 +31,13 @@ class TradeDetail extends Model
      */
     public function pair() {
         return $this->belongsTo('App\Model\CurrencyPair', 'currency_pair_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
+    public function detailable()
+    {
+        return $this->morphTo();
     }
 }

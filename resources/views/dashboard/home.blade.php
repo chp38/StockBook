@@ -61,24 +61,65 @@
         </div>
     </div>
 
+      @if ($errors->any())
+        <div class="alert alert-danger">
+          <ul>
+            @foreach ($errors->all() as $error)
+              {{ $error }}
+            @endforeach
+          </ul>
+        </div>
+      @endif
+
+      @if (session()->has('error'))
+        <div class="alert alert-danger">
+          <ul>
+            {{ session('error') }}
+          </ul>
+        </div>
+      @endif
+
+      @if (session()->has('success'))
+        <div class="alert alert-success">
+          <ul>
+            {{ session('success') }}
+          </ul>
+        </div>
+      @endif
+
     <!-- Area Chart Example-->
     <div class="card mb-3">
         <div class="card-header">
             <i class="fas fa-chart-area"></i>
             Currency Chart</div>
         <div class="card-body" style="background: #333">
-          <select name="dataTable_length" style="width: 10%;" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select>
-          <div id="chartdiv" currency-pair="5">
-            <div id="loading">
-              <img style="width: 100%; height:100%;" src="images/loading.svg" title="this slowpoke moves" />
+          <select id="home-chart-select" name="dataTable_length" style="width: 10%;" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
+            @foreach($pairs as $pair)
+              <option value="{{ $pair->id }}"> {{ $pair->name }} </option>
+            @endforeach
+          </select>
+          @if($mainPair != null)
+            <div id="chartdiv" currency-pair="{{ $mainPair->id }}">
+              <div id="loading">
+                <img style="width: 100%; height:100%;" src="images/loading.svg" title="this slowpoke moves" />
+              </div>
             </div>
-          </div>
-          <div class="dash-actions">
-            <button class="btn btn-primary">Add Watchlist</button>
-            <button class="btn btn-success">Add Trades</button>
-          </div>
+          @else
+            <div id="chartdiv">
+              No Pairs Found!
+            </div>
+          @endif
+          @if($mainPair != null)
+            <div class="dash-actions">
+              <form method="POST">
+                {{ csrf_field() }}
+                <input id="pair_id" type="hidden" name="pair_id" value="{{ $mainPair->id }}">
+                <button name="list" value="watchlist" id="home-add-watchlist" class="btn btn-primary">Add Watchlist</button>
+                <button name="list" value="trades" id="home-add-trades" class="btn btn-success">Add Trades</button>
+              </form>
+            </div>
+          @endif
         </div>
         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
     </div>
-
 @endsection

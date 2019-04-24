@@ -15,19 +15,25 @@ Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
 
+    // Home
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/', 'HomeController@index')->name('homePage');
+    Route::post('/', 'HomeController@addPair')->name('homePost');
 
-    Route::get('/', 'HomeController@index')->name('home');
-
+    // Trade types
     Route::resource('watchlist', 'TradeWatchlistController');
+    //Route::resource('trades', 'TradeWatchlistController');
+    //Route::resource('history', 'TradeWatchlistController');
 
+    // Currency Pairs - user can see
     Route::get('/currency/pairs', 'CurrencyPairsController@index')->name('currencyPairs.index');
-    //Route::get('/currency/pairs/{id}', 'CurrencyPairsController@show')->name('currencyPairs.show');
 
+    // logout
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/currency/pairs/{id}', 'CurrencyPairsController@show')->name('currencyPairs.show');
     //Routes for currency pairs admin page - add/remove/edit them
 });

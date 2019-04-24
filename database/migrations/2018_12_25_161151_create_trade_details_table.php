@@ -20,6 +20,8 @@ class CreateTradeDetailsTable extends Migration
             $table->float('entry_price');//Entry_price
             $table->float('exit_price')->nullable();//Exit_price
             $table->integer('pip_difference')->nullable();//Pip_difference
+            $table->integer('detailable_id')->unsigned();
+            $table->string('detailable_type');
             $table->timestamps();
         });
 

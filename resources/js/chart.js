@@ -4,6 +4,29 @@
 
 window.techan = require('techan/dist/techan');
 
+function changeHomeChart()
+{
+  var ctx = document.getElementById("chartdiv");
+
+  d3.select("#chartdiv svg").remove();
+
+  setNewHomepageValues();
+
+  var newId = ctx.getAttribute('currency-pair');
+
+  $('#loading').fadeIn('slow', function() {
+    getChartData(newId);
+  });
+}
+
+function setNewHomepageValues()
+{
+  var value = $("#home-chart-select").val();
+
+  document.getElementById("chartdiv").setAttribute('currency-pair', value);
+  $('#pair_id').val(value);
+}
+
 /**
  * Initialize the chart if the correct element with id exists
  * @type {HTMLElement}
@@ -15,6 +38,11 @@ if(ctx != null) {
 
   getChartData(id);
 }
+
+
+$("#home-chart-select").change(function() {
+  changeHomeChart();
+});
 
 /**
  * Render the chart
@@ -202,7 +230,7 @@ function renderChart(data)
    .yAnnotation([rsiAnnotation, rsiAnnotationLeft])
    .verticalWireRange([0, dim.plot.height]);
 
-  var svg = d3.select("#chartdiv").append("svg")
+  var svg = d3.select("#chartdiv").insert("svg")
    .attr("width", dim.width)
    .attr("height", dim.height);
 
@@ -228,11 +256,6 @@ function renderChart(data)
 
   svg = svg.append("g")
    .attr("transform", "translate(" + dim.margin.left + "," + dim.margin.top + ")");
-
-  svg.append('text')
-   .attr("class", "symbol")
-   .attr("x", 20)
-   .text("Facebook, Inc. (FB)");
 
   svg.append("g")
    .attr("class", "x axis")
@@ -318,7 +341,7 @@ function renderChart(data)
    .attr("class", "supstances analysis")
    .attr("clip-path", "url(#ohlcClip)");
 
-  d3.select("button").on("click", reset);
+  //d3.select("button").on("click", reset);
 
   var accessor         = candlestick.accessor(),
       indicatorPreRoll = 33;  // Don't show where indicators don't have data
@@ -340,7 +363,6 @@ function renderChart(data)
   yPercent.domain(techan.scale.plot.percent(y, accessor(data[indicatorPreRoll])).domain());
   yVolume.domain(techan.scale.plot.volume(data).domain());
 
-  console.log(data);
   /*var trendlineData = [
     {start: {date: new Date(2014, 2, 11), value: 72.50}, end: {date: new Date(2014, 5, 9), value: 63.34}},
     {start: {date: new Date(2013, 10, 21), value: 43}, end: {date: new Date(2014, 2, 17), value: 70.50}}

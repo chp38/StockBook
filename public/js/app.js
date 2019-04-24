@@ -52328,10 +52328,27 @@ if (token) {
 //import * as am4charts from "@amcharts/amcharts4/charts";
 //import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 window.techan = __webpack_require__(/*! techan/dist/techan */ "./node_modules/techan/dist/techan.js");
+
+function changeHomeChart() {
+  var ctx = document.getElementById("chartdiv");
+  d3.select("#chartdiv svg").remove();
+  setNewHomepageValues();
+  var newId = ctx.getAttribute('currency-pair');
+  $('#loading').fadeIn('slow', function () {
+    getChartData(newId);
+  });
+}
+
+function setNewHomepageValues() {
+  var value = $("#home-chart-select").val();
+  document.getElementById("chartdiv").setAttribute('currency-pair', value);
+  $('#pair_id').val(value);
+}
 /**
  * Initialize the chart if the correct element with id exists
  * @type {HTMLElement}
  */
+
 
 var ctx = document.getElementById("chartdiv");
 
@@ -52339,11 +52356,14 @@ if (ctx != null) {
   var id = ctx.getAttribute('currency-pair');
   getChartData(id);
 }
+
+$("#home-chart-select").change(function () {
+  changeHomeChart();
+});
 /**
  * Render the chart
  * @param data
  */
-
 
 function renderChart(data) {
   var dim = {
@@ -52414,7 +52434,7 @@ function renderChart(data) {
   var ohlcCrosshair = techan.plot.crosshair().xScale(timeAnnotation.axis().scale()).yScale(ohlcAnnotation.axis().scale()).xAnnotation(timeAnnotation).yAnnotation([ohlcAnnotation, percentAnnotation, volumeAnnotation]).verticalWireRange([0, dim.plot.height]);
   var macdCrosshair = techan.plot.crosshair().xScale(timeAnnotation.axis().scale()).yScale(macdAnnotation.axis().scale()).xAnnotation(timeAnnotation).yAnnotation([macdAnnotation, macdAnnotationLeft]).verticalWireRange([0, dim.plot.height]);
   var rsiCrosshair = techan.plot.crosshair().xScale(timeAnnotation.axis().scale()).yScale(rsiAnnotation.axis().scale()).xAnnotation(timeAnnotation).yAnnotation([rsiAnnotation, rsiAnnotationLeft]).verticalWireRange([0, dim.plot.height]);
-  var svg = d3.select("#chartdiv").append("svg").attr("width", dim.width).attr("height", dim.height);
+  var svg = d3.select("#chartdiv").insert("svg").attr("width", dim.width).attr("height", dim.height);
   var defs = svg.append("defs");
   defs.append("clipPath").attr("id", "ohlcClip").append("rect").attr("x", 0).attr("y", 0).attr("width", dim.plot.width).attr("height", dim.ohlc.height);
   defs.selectAll("indicatorClip").data([0, 1]).enter().append("clipPath").attr("id", function (d, i) {
@@ -52423,7 +52443,6 @@ function renderChart(data) {
     return indicatorTop(i);
   }).attr("width", dim.plot.width).attr("height", dim.indicator.height);
   svg = svg.append("g").attr("transform", "translate(" + dim.margin.left + "," + dim.margin.top + ")");
-  svg.append('text').attr("class", "symbol").attr("x", 20).text("Facebook, Inc. (FB)");
   svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + dim.plot.height + ")");
   var ohlcSelection = svg.append("g").attr("class", "ohlc").attr("transform", "translate(0,0)");
   ohlcSelection.append("g").attr("class", "axis").attr("transform", "translate(" + x(1) + ",0)").append("text").attr("transform", "rotate(-90)").attr("y", -12).attr("dy", ".71em").style("text-anchor", "end").text("Price ($)");
@@ -52449,8 +52468,8 @@ function renderChart(data) {
   svg.append('g').attr("class", "crosshair macd");
   svg.append('g').attr("class", "crosshair rsi");
   svg.append("g").attr("class", "trendlines analysis").attr("clip-path", "url(#ohlcClip)");
-  svg.append("g").attr("class", "supstances analysis").attr("clip-path", "url(#ohlcClip)");
-  d3.select("button").on("click", reset);
+  svg.append("g").attr("class", "supstances analysis").attr("clip-path", "url(#ohlcClip)"); //d3.select("button").on("click", reset);
+
   var accessor = candlestick.accessor(),
       indicatorPreRoll = 33; // Don't show where indicators don't have data
 
@@ -52471,7 +52490,6 @@ function renderChart(data) {
   y.domain(techan.scale.plot.ohlc(data.slice(indicatorPreRoll)).domain());
   yPercent.domain(techan.scale.plot.percent(y, accessor(data[indicatorPreRoll])).domain());
   yVolume.domain(techan.scale.plot.volume(data).domain());
-  console.log(data);
   /*var trendlineData = [
     {start: {date: new Date(2014, 2, 11), value: 72.50}, end: {date: new Date(2014, 5, 9), value: 63.34}},
     {start: {date: new Date(2013, 10, 21), value: 43}, end: {date: new Date(2014, 2, 17), value: 70.50}}

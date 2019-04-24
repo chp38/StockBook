@@ -13,7 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _core_Container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../core/Container */ "./node_modules/@amcharts/amcharts4/.internal/core/Container.js");
 /* harmony import */ var _core_elements_Rectangle__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../core/elements/Rectangle */ "./node_modules/@amcharts/amcharts4/.internal/core/elements/Rectangle.js");
-/* harmony import */ var _core_utils_List__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../core/utils/List */ "./node_modules/@amcharts/amcharts4/.internal/core/utils/List.js");
+/* harmony import */ var _core_utils_List__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../core/utils/Lists */ "./node_modules/@amcharts/amcharts4/.internal/core/utils/Lists.js");
 /* harmony import */ var _core_utils_Disposer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../core/utils/Disposer */ "./node_modules/@amcharts/amcharts4/.internal/core/utils/Disposer.js");
 /* harmony import */ var _core_Registry__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../core/Registry */ "./node_modules/@amcharts/amcharts4/.internal/core/Registry.js");
 /* harmony import */ var _core_utils_Color__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../core/utils/Color */ "./node_modules/@amcharts/amcharts4/.internal/core/utils/Color.js");

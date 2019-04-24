@@ -19215,7 +19215,7 @@ var PRN = (function() {
 		return arr;
 	}
 
-	// List of accepted CSV separators
+	// Lists of accepted CSV separators
 	var guess_seps = {
 0x2C: ',',
 0x09: "\t",
