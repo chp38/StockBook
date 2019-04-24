@@ -101,7 +101,7 @@
           @if($mainPair != null)
             <div id="chartdiv" currency-pair="{{ $mainPair->id }}">
               <div id="loading">
-                <img style="width: 100%; height:100%;" src="images/loading.svg" title="this slowpoke moves" />
+                <img style="width: 100%; height:100%;" src="images/loading.gif" title="this slowpoke moves" />
               </div>
             </div>
           @else

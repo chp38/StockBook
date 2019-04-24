@@ -19,7 +19,7 @@
     <div class="card-body" style="background: #333">
       <div id="chartdiv" currency-pair="{{ $watchlistItem->detail->pair->id }}">
         <div id="loading">
-          <img style="width: 100%; height:100%;" src="/images/loading.svg" title="this slowpoke moves" />
+          <img style="width: 100%; height:100%;" src="/images/loading.gif" title="this slowpoke moves" />
         </div>
       </div>
     </div>
