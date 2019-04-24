@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-<ul class="sidebar navbar-nav">
+<ul class="sidebar navbar-nav toggled">
     <li class="nav-item {{\Route::current()->getName() == 'home' ? 'active' : ''}}">
         <a class="nav-link" href="/">
             <i class="fas fa-fw fa-tachometer-alt"></i>
