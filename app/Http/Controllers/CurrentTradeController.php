@@ -2,10 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Lists\ActiveListService;
 use Illuminate\Http\Request;
 
 class CurrentTradeController extends Controller
 {
+    /**
+     * @var ActiveListService
+     */
+    protected $currentService;
+
+    /**
+     * CurrentTradeController constructor.
+     *
+     * @param ActiveListService $currentService
+     */
+    public function __construct(ActiveListService $currentService)
+    {
+        $this->currentService  = $currentService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -45,40 +61,8 @@ class CurrentTradeController extends Controller
      */
     public function show($id)
     {
-        //
-    }
+        $trade = $this->currentService->getItem($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        dd($trade);
     }
 }

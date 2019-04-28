@@ -2,20 +2,29 @@
 
 namespace App\Rules;
 
+use App\Model\CurrentTrade;
 use App\Model\TradeDetail;
+use App\Model\TradeWatchlist;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 
 class CurrentlyListed implements Rule
 {
     /**
+     * The list we are adding to
+     *
+     * @var String
+     */
+    private $list;
+
+    /**
      * Create a new rule instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(String $list)
     {
-        //
+        $this->list = $list;
     }
 
     /**
@@ -29,12 +38,30 @@ class CurrentlyListed implements Rule
     {
         $user = Auth::user();
 
-        $trade = TradeDetail::where('user_id', $user->id)
+        $trades = TradeDetail::where('user_id', $user->id)
             ->where('currency_pair_id', $value)
-            ->first();
+            ->where('deleted_at', null)
+            ->get();
 
+        switch($this->list) {
+            case 'watchlist':
+                $model = TradeWatchlist::class;
+                break;
+            case 'trades':
+                $model = CurrentTrade::class;
+                break;
+            default:
+                $model = CurrentTrade::class;
+                break;
+        }
 
-        return !$trade instanceof TradeDetail;
+        foreach($trades as $trade) {
+            if($trade->detailable instanceof $model) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**

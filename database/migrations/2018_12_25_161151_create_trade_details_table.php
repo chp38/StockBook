@@ -22,6 +22,7 @@ class CreateTradeDetailsTable extends Migration
             $table->integer('pip_difference')->nullable();//Pip_difference
             $table->integer('detailable_id')->unsigned();
             $table->string('detailable_type');
+            $table->softDeletes();
             $table->timestamps();
         });
 

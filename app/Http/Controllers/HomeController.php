@@ -58,7 +58,7 @@ class HomeController extends Controller
     public function addPair(Request $request)
     {
         $validator = $request->validate([
-            'pair_id' => ['required', 'string', new CurrentlyListed],
+            'pair_id' => ['required', 'string', new CurrentlyListed($request->list)],
             'list'    => 'required',
         ]);
 

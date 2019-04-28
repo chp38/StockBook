@@ -69,4 +69,14 @@ class ListService
 
         return $service->addCurrencyPair($pairId);
     }
+
+    /**
+     * Get a single item from one of the lists
+     *
+     * @param $id
+     */
+    public function getItem($id)
+    {
+        return $this->repository->find($id);
+    }
 }
