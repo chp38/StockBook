@@ -29,7 +29,9 @@ class CurrentTradeController extends Controller
      */
     public function index()
     {
-        //
+        $trades = $this->currentService->getAll();
+
+        return view('current.index', ['trades' => $trades]);
     }
 
     /**
@@ -63,6 +65,6 @@ class CurrentTradeController extends Controller
     {
         $trade = $this->currentService->getItem($id);
 
-        dd($trade);
+        return view('current.item', ['trade' => $trade]);
     }
 }

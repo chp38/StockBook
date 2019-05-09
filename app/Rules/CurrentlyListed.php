@@ -61,6 +61,11 @@ class CurrentlyListed implements Rule
             }
         }
 
+        // TODO
+        //  -   Should just return if $trade(singular) is null or not
+        //      So that we can check that one currency pair is only
+        //      active in one list at a time
+
         return true;
     }
 

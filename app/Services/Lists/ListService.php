@@ -12,6 +12,7 @@ use App\Model\TradeWatchlist;
 use App\Repositories\RepositoryInterface;
 use App\Repositories\TradeDetails\TradeDetailsRepository;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 
 class ListService
 {
@@ -39,11 +40,18 @@ class ListService
 
     /**
      * Get all the list items
+     *
+     * @param null $user
+     *
      * @return mixed
      */
-    public function getAll()
+    public function getAll($user = null)
     {
-        return $this->repository->all();
+        if($user === null){
+            $user = Auth::user()->id;
+        }
+
+        return $this->repository->getAllForUser($user);
     }
 
     /**
@@ -74,6 +82,8 @@ class ListService
      * Get a single item from one of the lists
      *
      * @param $id
+     *
+     * @return mixed
      */
     public function getItem($id)
     {

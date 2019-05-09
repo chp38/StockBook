@@ -35,7 +35,7 @@ services:
     volumes:
       - ./public:/var/www/public
     ports:
-      - 8080:80
+      - 8089:80
 
   # The database
   database:

@@ -44,6 +44,15 @@ interface RepositoryInterface
     public function all();
 
     /**
+     * Return all records for a given user
+     *
+     * @param $user
+     *
+     * @return mixed
+     */
+    public function getAllForUser($user);
+
+    /**
     * @param $ids
     * @return mixed
     */
