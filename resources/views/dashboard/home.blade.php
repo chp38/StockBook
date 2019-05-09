@@ -19,7 +19,7 @@
                     </div>
                     <div class="mr-5">Active Trades</div>
                 </div>
-                <a class="card-footer text-white clearfix small z-1" href="#">
+                <a class="card-footer text-white clearfix small z-1" href="{{ route('trades.index') }}">
                     <span class="float-left">View Details</span>
                     <span class="float-right">
                     <i class="fas fa-angle-right"></i>

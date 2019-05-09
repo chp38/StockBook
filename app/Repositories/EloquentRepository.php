@@ -93,6 +93,18 @@ abstract class EloquentRepository implements RepositoryInterface
     }
 
     /**
+     * Get all of the results
+     *
+     * @return mixed
+     */
+    public function getAllForUser($user)
+    {
+        return $this->model->whereHas('detail', function ($query) use($user){
+            $query->where('user_id', $user);
+        })->get();
+    }
+
+    /**
      * Where Id is in
      *
      * @param array $ids

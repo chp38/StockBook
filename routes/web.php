@@ -21,9 +21,17 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/', 'HomeController@addPair')->name('homePost');
 
     // Trade types
-    Route::resource('watchlist', 'TradeWatchlistController');
-    //Route::resource('trades', 'TradeWatchlistController');
-    //Route::resource('history', 'TradeWatchlistController');
+    Route::resource('watchlist', 'TradeWatchlistController')->except([
+        'edit', 'update', 'destroy'
+    ]);
+
+    Route::resource('trades', 'CurrentTradeController')->except([
+        'edit', 'update', 'destroy'
+    ]);
+
+    Route::resource('history', 'TradeWatchlistController')->except([
+        'edit', 'update', 'destroy'
+    ]);
 
     // Currency Pairs - user can see
     Route::get('/currency/pairs', 'CurrencyPairsController@index')->name('currencyPairs.index');
