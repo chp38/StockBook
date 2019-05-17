@@ -11,6 +11,7 @@ namespace App\Services\Lists;
 use App\Model\TradeWatchlist;
 use App\Repositories\RepositoryInterface;
 use App\Repositories\TradeDetails\TradeDetailsRepository;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
@@ -88,5 +89,15 @@ class ListService
     public function getItem($id)
     {
         return $this->repository->find($id);
+    }
+
+    public function calculatePipDifference(Model $trade)
+    {
+        // Calculate the pip difference for a given trade
+    }
+
+    public function calculateProfit()
+    {
+        // Calculate profit of
     }
 }
