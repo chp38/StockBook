@@ -8,36 +8,9 @@
 
 namespace App\Repositories\AlphaVantage;
 
+use App\Repositories\CommodityAPIInterface;
 
-interface AlphaVantageInterface
+interface AlphaVantageInterface extends CommodityAPIInterface
 {
-    // get currencyPairCrossSection()
-        // - get the data for a currency pair between 2 given dates ??
-
-    /**
-     * Get the current exchange rate for a given pair
-     *
-     * @param String $pair
-     * @return mixed
-     */
-    public function getCurrentPriceInformation(String $pair);
-
-    /**
-     * @param String $pair
-     * @param $interval
-     * @return mixed
-     */
-    public function getIntraDayInformation(String $pair, $interval);
-
-    /**
-     * @param String $pair
-     * @return mixed
-     */
-    public function getDailyInformation(String $pair);
-
-    /**
-     * @param String $pair
-     * @return mixed
-     */
-    public function getWeeklyInformation(String $pair);
+    //
 }
