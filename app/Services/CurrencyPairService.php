@@ -12,6 +12,7 @@ namespace App\Services;
 use App\Model\CurrencyPair;
 use App\Repositories\AlphaVantage\AlphaVantageInterface;
 use App\Repositories\CurrencyPairs\CurrencyPairsRepository;
+use App\Repositories\IG\IGRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,23 +24,23 @@ class CurrencyPairService
     protected $repository;
 
     /**
-    * @var AlphaVantageInterface
+    * @var IGRepositoryInterface
     */
-    protected $alphaVantage;
+    protected $igrepository;
 
     /**
      * CurrencyPairService constructor.
      *
-     * @param  CurrencyPairsRepository $repository
-     * @param AlphaVantageInterface    $alphaVantage
+     * @param CurrencyPairsRepository $repository
+     * @param IGRepositoryInterface   $igrepo
      */
     public function __construct(
       CurrencyPairsRepository $repository,
-      AlphaVantageInterface $alphaVantage
+      IGRepositoryInterface $igrepo
     )
     {
         $this->repository = $repository;
-        $this->alphaVantage = $alphaVantage;
+        $this->igrepository = $igrepo;
     }
 
     /**
@@ -74,7 +75,7 @@ class CurrencyPairService
         $pair = $this->repository->find($id);
 
         if ($pair instanceof CurrencyPair) {
-            return $this->alphaVantage->getCurrentPriceInformation($pair->name);
+            return $this->igrepository->getCurrentPriceInformation($pair->name);
         }
 
         return false;
@@ -91,7 +92,7 @@ class CurrencyPairService
         $pair = $this->repository->find($id);
 
         if ($pair instanceof CurrencyPair) {
-            return $this->alphaVantage->getIntraDayInformation($pair->name, '5min');
+            return $this->igrepository->getIntraDayInformation($pair->name, '5min');
         }
 
         return false;
