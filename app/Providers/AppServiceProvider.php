@@ -23,6 +23,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind('App\Repositories\IG\IGRepositoryInterface',
+            'App\Repositories\IG\IGRepository'
+        );
+
         $this->app->bind('App\Repositories\AlphaVantage\AlphaVantageInterface',
             'App\Repositories\AlphaVantage\AlphaVantageRepository'
         );
