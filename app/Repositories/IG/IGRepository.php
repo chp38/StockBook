@@ -150,12 +150,13 @@ class IGRepository implements IGRepositoryInterface
      */
     public function getPairEpic($pair)
     {
-
+        // If the currency pair doesn't have an epic
+        // get it from ig
     }
 
     /**
      * @param String $pair
-     * @param        $interval
+     * @param String $interval
      *
      * @return mixed
      */
