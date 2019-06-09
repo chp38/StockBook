@@ -2,18 +2,24 @@
 
 namespace Tests\Unit;
 
+use App\Repositories\IG\IGRepository;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ExampleTest extends TestCase
+class IGRepoTest extends TestCase
 {
     /**
      * A basic test example.
      *
      * @return void
      */
-    public function testBasicTest()
+    public function testGetIntraday()
     {
-        $this->assertTrue(true);
+        $repo = new IGRepository();
+
+        $prices = $repo->getIntraDayInformation('GBP/USD', '5min');
+
+        var_dump($prices);die;
+
     }
 }
