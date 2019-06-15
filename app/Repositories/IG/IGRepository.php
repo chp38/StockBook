@@ -8,8 +8,9 @@
 
 namespace App\Repositories\IG;
 
+use App\Model\CurrencyPair;
+use App\Repositories\CurrencyPairs\CurrencyPairsRepository;
 use GuzzleHttp\Client;
-use PhpParser\Node\Scalar\String_;
 
 class IGRepository implements IGRepositoryInterface
 {
@@ -42,6 +43,11 @@ class IGRepository implements IGRepositoryInterface
     protected $client;
 
     /**
+     * @var CurrencyPairsRepository
+     */
+    protected $pairRepository;
+
+    /**
      * @const array allowed resolution types
      */
     const resolution = [
@@ -61,10 +67,11 @@ class IGRepository implements IGRepositoryInterface
 
     /**
      * IGRepository constructor.
-     *
      * Get config options for IG API
+     *
+     * @param CurrencyPairsRepository $pairRepository
      */
-    public function __construct()
+    public function __construct(CurrencyPairsRepository $pairRepository)
     {
         $this->baseUrl = config('app.ig_api_url');
         $this->key     = config('app.ig_api_key');
@@ -75,6 +82,8 @@ class IGRepository implements IGRepositoryInterface
                 'base_uri' => $this->baseUrl
             ]
         );
+
+        $this->pairRepository = $pairRepository;
     }
 
     /**
@@ -123,7 +132,7 @@ class IGRepository implements IGRepositoryInterface
      *
      * @return array
      */
-    private function parseResponse($prices)
+    private function parsePriceResponse($prices)
     {
         $prices = json_decode($prices->getBody(), true);
 
@@ -163,7 +172,7 @@ class IGRepository implements IGRepositoryInterface
     public function getIntraDayInformation(String $pair, $interval)
     {
         $tokens = $this->login();
-        $epic = $this->getPairEpic($pair);
+        $epic = $this->getEpic($pair);
         $url = "deal/prices/$epic/" . self::resolution[$interval] . "/300";
 
         $response = $this->client->get($url, ['headers' => [
@@ -175,7 +184,7 @@ class IGRepository implements IGRepositoryInterface
             'X-SECURITY-TOKEN' => $tokens['token']
         ]]);
 
-        return $this->parseResponse($response);
+        return $this->parsePriceResponse($response);
     }
 
     /**
@@ -198,7 +207,7 @@ class IGRepository implements IGRepositoryInterface
             'X-SECURITY-TOKEN' => $tokens['token']
         ]]);
 
-        return $this->parseResponse($response);
+        return $this->parsePriceResponse($response);
     }
 
     /**
@@ -221,7 +230,39 @@ class IGRepository implements IGRepositoryInterface
             'X-SECURITY-TOKEN' => $tokens['token']
         ]]);
 
-        return $this->parseResponse($response);
+        return $this->parsePriceResponse($response);
+    }
+
+    /**
+     * Get the epic for a given currency pair
+     *
+     * @param String $pair
+     * @return bool|String
+     */
+    public function getEpic(String $pair)
+    {
+        $tokens = $this->login();
+        $pair = strtoupper($pair);
+        $url = "deal/markets?searchTerm=" . urlencode($pair);
+
+        $response = $this->client->get($url, ['headers' => [
+            'content-type' => 'application/json; charset=UTF-8',
+            'Accept'       => 'application/json; charset=UTF-8',
+            'Version'      => '1',
+            'X-IG-API-KEY' => $this->key,
+            'CST'          => $tokens['cst'],
+            'X-SECURITY-TOKEN' => $tokens['token']
+        ]]);
+
+        $response = json_decode($response->getBody(), true);
+
+        foreach ($response['markets'] as $market) {
+            if ($market['instrumentName'] === $pair) {
+                return $market['epic'];
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -238,4 +279,5 @@ class IGRepository implements IGRepositoryInterface
     public function executeTrade()
     {
         // TODO: Implement executeTrade() method.
-}}
+    }
+}
