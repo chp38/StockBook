@@ -8,6 +8,7 @@
 
 namespace App\Repositories\IG;
 
+use App\Model\CurrencyPair;
 use App\Repositories\CommodityAPIInterface;
 
 interface IGRepositoryInterface extends CommodityAPIInterface
@@ -21,4 +22,12 @@ interface IGRepositoryInterface extends CommodityAPIInterface
      * Execute a given trade
      */
     public function executeTrade();
+
+    /**
+     * Get the epic for a given currency pair
+     *
+     * @param String $pair
+     * @return mixed|String
+     */
+    public function getEpic(String $pair);
 }

@@ -2,12 +2,17 @@
 
 namespace Tests\Unit;
 
+use App\Model\CurrencyPair;
+use App\Repositories\CurrencyPairs\CurrencyPairsRepository;
 use App\Repositories\IG\IGRepository;
+use Illuminate\Support\Facades\Artisan;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class IGRepoTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * A basic test example.
      *
@@ -15,11 +20,14 @@ class IGRepoTest extends TestCase
      */
     public function testGetIntraday()
     {
-        $repo = new IGRepository();
+        Artisan::call('db:seed');
 
-        $prices = $repo->getIntraDayInformation('GBP/USD', '5min');
+        $repo = new IGRepository(new CurrencyPairsRepository(new CurrencyPair()));
 
-        var_dump($prices);die;
+        $pair = CurrencyPair::where('name', 'GBP/USD')->first();
 
+        $epic = $repo->getEpic($pair->name);
+
+        $this->assertEquals('CS.D.GBPUSD.CFD.IP', $epic);
     }
 }

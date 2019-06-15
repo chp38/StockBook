@@ -97,4 +97,20 @@ class CurrencyPairService
 
         return false;
     }
+
+    /**
+     * Get all the currency pairs and update their IG Epic.
+     */
+    public function updatePairEpics()
+    {
+        $pairs = $this->getAllPairs();
+
+        foreach ($pairs as $pair) {
+            $epic = $this->igrepository->getEpic($pair->name);
+
+            if ($epic) {
+                $this->repository->update($pair->id, ['ig_epic' => $epic]);
+            }
+        }
+    }
 }
