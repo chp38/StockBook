@@ -100,8 +100,10 @@ class CurrencyPairService
 
     /**
      * Get all the currency pairs and update their IG Epic.
+     *
+     * @param bool $command
      */
-    public function updatePairEpics()
+    public function updatePairEpics($command = false)
     {
         $pairs = $this->getAllPairs();
 
@@ -109,6 +111,9 @@ class CurrencyPairService
             $epic = $this->igrepository->getEpic($pair->name);
 
             if ($epic) {
+                if ($command) {
+                    echo "Updating $pair->name(id: $pair->id) ig_epic to: " . $epic . PHP_EOL;
+                }
                 $this->repository->update($pair->id, ['ig_epic' => $epic]);
             }
         }

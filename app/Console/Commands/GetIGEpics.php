@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Services\CurrencyPairService;
 use Illuminate\Console\Command;
 
 class GetIGEpics extends Command
@@ -11,23 +12,30 @@ class GetIGEpics extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'ig:update:epics';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Command to loop all of the Currency Pairs and update the ig_epic field';
+
+    /**
+     * @var CurrencyPairService
+     */
+    protected $service;
 
     /**
      * Create a new command instance.
      *
-     * @return void
+     * @param CurrencyPairService $service
      */
-    public function __construct()
+    public function __construct(CurrencyPairService $service)
     {
         parent::__construct();
+
+        $this->service = $service;
     }
 
     /**
@@ -37,6 +45,6 @@ class GetIGEpics extends Command
      */
     public function handle()
     {
-        //
+        $this->service->updatePairEpics(true);
     }
 }
