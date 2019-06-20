@@ -118,4 +118,22 @@ class CurrencyPairService
             }
         }
     }
+
+    /**
+     * Update the ig_epic for a single given currency pair.
+     *
+     * @param CurrencyPair $pair
+     * @param bool $command
+     */
+    public function updatePairEpic(CurrencyPair $pair, $command = false)
+    {
+        $epic = $this->igrepository->getEpic($pair->name);
+
+        if ($epic) {
+            if ($command) {
+                echo "Updating $pair->name(id: $pair->id) ig_epic to: " . $epic . PHP_EOL;
+            }
+            $this->repository->update($pair->id, ['ig_epic' => $epic]);
+        }
+    }
 }
