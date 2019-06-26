@@ -8,7 +8,6 @@
 
 namespace App\Repositories\IG;
 
-use App\Model\CurrencyPair;
 use App\Repositories\CurrencyPairs\CurrencyPairsRepository;
 use GuzzleHttp\Client;
 
@@ -95,7 +94,22 @@ class IGRepository implements IGRepositoryInterface
      */
     public function getCurrentPriceInformation(String $pair)
     {
-        // TODO: Implement getCurrentPriceInformation() method.
+        $tokens = $this->login();
+        $epic = $this->getEpic($pair);
+        $url = "deal/markets/" . $epic;
+
+        $response = $this->client->get($url, ['headers' => [
+            'content-type' => 'application/json; charset=UTF-8',
+            'Accept'       => 'application/json; charset=UTF-8',
+            'Version'      => '2',
+            'X-IG-API-KEY' => $this->key,
+            'CST'          => $tokens['cst'],
+            'X-SECURITY-TOKEN' => $tokens['token']
+        ]]);
+
+        $info = json_decode($response->getBody(), true);
+
+        return $info['instrument']['currencies'][0]['baseExchangeRate'];
     }
 
     /**

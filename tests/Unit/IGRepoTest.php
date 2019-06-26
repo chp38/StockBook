@@ -30,4 +30,18 @@ class IGRepoTest extends TestCase
 
         $this->assertEquals('CS.D.GBPUSD.CFD.IP', $epic);
     }
+
+    /**
+     * Test getting current price information
+     */
+    public function testGetPriceInfo()
+    {
+        Artisan::call('db:seed');
+        $repo = new IGRepository(new CurrencyPairsRepository(new CurrencyPair()));
+        $pair = CurrencyPair::where('name', 'GBP/USD')->first();
+
+        $info = $repo->getCurrentPriceInformation($pair->name);
+
+        $this->assertNotNull($info);
+    }
 }
