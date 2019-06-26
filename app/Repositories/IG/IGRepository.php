@@ -169,15 +169,6 @@ class IGRepository implements IGRepositoryInterface
     }
 
     /**
-     * Get the epic of the currency pair for IG
-     */
-    public function getPairEpic($pair)
-    {
-        // If the currency pair doesn't have an epic
-        // get it from ig
-    }
-
-    /**
      * @param String $pair
      * @param String $interval
      *

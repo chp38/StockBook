@@ -8,7 +8,6 @@
 
 namespace App\Repositories\IG;
 
-use App\Model\CurrencyPair;
 use App\Repositories\CommodityAPIInterface;
 
 interface IGRepositoryInterface extends CommodityAPIInterface
