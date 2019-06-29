@@ -12,6 +12,7 @@ namespace App\Services;
 use App\Model\CurrencyPair;
 use App\Repositories\AlphaVantage\AlphaVantageInterface;
 use App\Repositories\CurrencyPairs\CurrencyPairsRepository;
+use App\Repositories\IG\IGRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,23 +24,23 @@ class CurrencyPairService
     protected $repository;
 
     /**
-    * @var AlphaVantageInterface
+    * @var IGRepositoryInterface
     */
-    protected $alphaVantage;
+    protected $igrepository;
 
     /**
      * CurrencyPairService constructor.
      *
-     * @param  CurrencyPairsRepository $repository
-     * @param AlphaVantageInterface    $alphaVantage
+     * @param CurrencyPairsRepository $repository
+     * @param IGRepositoryInterface   $igrepo
      */
     public function __construct(
       CurrencyPairsRepository $repository,
-      AlphaVantageInterface $alphaVantage
+      IGRepositoryInterface $igrepo
     )
     {
         $this->repository = $repository;
-        $this->alphaVantage = $alphaVantage;
+        $this->igrepository = $igrepo;
     }
 
     /**
@@ -74,7 +75,7 @@ class CurrencyPairService
         $pair = $this->repository->find($id);
 
         if ($pair instanceof CurrencyPair) {
-            return $this->alphaVantage->getCurrentPriceInformation($pair->name);
+            return $this->igrepository->getCurrentPriceInformation($pair->name);
         }
 
         return false;
@@ -91,9 +92,48 @@ class CurrencyPairService
         $pair = $this->repository->find($id);
 
         if ($pair instanceof CurrencyPair) {
-            return $this->alphaVantage->getIntraDayInformation($pair->name, '5min');
+            return $this->igrepository->getIntraDayInformation($pair->name, '5min');
         }
 
         return false;
+    }
+
+    /**
+     * Get all the currency pairs and update their IG Epic.
+     *
+     * @param bool $command
+     */
+    public function updatePairEpics($command = false)
+    {
+        $pairs = $this->getAllPairs();
+
+        foreach ($pairs as $pair) {
+            $epic = $this->igrepository->getEpic($pair->name);
+
+            if ($epic) {
+                if ($command) {
+                    echo "Updating $pair->name(id: $pair->id) ig_epic to: " . $epic . PHP_EOL;
+                }
+                $this->repository->update($pair->id, ['ig_epic' => $epic]);
+            }
+        }
+    }
+
+    /**
+     * Update the ig_epic for a single given currency pair.
+     *
+     * @param CurrencyPair $pair
+     * @param bool $command
+     */
+    public function updatePairEpic(CurrencyPair $pair, $command = false)
+    {
+        $epic = $this->igrepository->getEpic($pair->name);
+
+        if ($epic) {
+            if ($command) {
+                echo "Updating $pair->name(id: $pair->id) ig_epic to: " . $epic . PHP_EOL;
+            }
+            $this->repository->update($pair->id, ['ig_epic' => $epic]);
+        }
     }
 }

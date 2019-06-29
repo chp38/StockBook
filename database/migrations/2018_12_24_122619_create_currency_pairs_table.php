@@ -16,6 +16,7 @@ class CreateCurrencyPairsTable extends Migration
         Schema::create('currency_pairs', function (Blueprint $table) {
             $table->increments('id');
             $table->char('name', 10);
+            $table->string('ig_epic', 30)->nullable()->default(null);
             $table->softDeletes();
             $table->timestamps();
         });
