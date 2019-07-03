@@ -9,10 +9,11 @@
 namespace App\Services\Lists;
 
 use App\Model\TradeWatchlist;
+use App\Repositories\CurrencyPairs\CurrencyPairsRepository;
+use App\Repositories\IG\IGRepositoryInterface;
 use App\Repositories\RepositoryInterface;
 use App\Repositories\TradeDetails\TradeDetailsRepository;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
 class ListService
@@ -23,20 +24,39 @@ class ListService
     protected $repository;
 
     /**
+     * @var IGRepositoryInterface
+     */
+    protected $igRepo;
+
+    /**
      * @var TradeDetailsRepository
      */
     protected $tradeDetails;
 
     /**
+     * @var CurrencyPairsRepository
+     */
+    protected $pairs;
+
+    /**
      * ListService constructor.
      *
-     * @param RepositoryInterface      $repository
-     * @param RepositoryInterface|null $tradeDetails
+     * @param RepositoryInterface        $repository
+     * @param RepositoryInterface|null   $tradeDetails
+     * @param IGRepositoryInterface|null $igRepo
+     * @param CurrencyPairsRepository    $pairs
      */
-    public function __construct(RepositoryInterface $repository = null, RepositoryInterface $tradeDetails = null)
+    public function __construct(
+        RepositoryInterface $repository = null,
+        RepositoryInterface $tradeDetails = null,
+        IGRepositoryInterface $igRepo = null,
+        CurrencyPairsRepository $pairs = null
+    )
     {
         $this->repository = $repository;
         $this->tradeDetails = $tradeDetails;
+        $this->igRepo = $igRepo;
+        $this->pairs = $pairs;
     }
 
     /**

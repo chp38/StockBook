@@ -8,6 +8,9 @@
 
  namespace App\Services\Lists;
 
+use App\Repositories\CurrencyPairs\CurrencyPairsRepository;
+use App\Repositories\CurrentTrades\CurrentTradesRepository;
+use App\Repositories\IG\IGRepositoryInterface;
 use App\Repositories\TradeDetails\TradeDetailsRepository;
 use App\Repositories\TradeWatchlist\TradeWatchlistRepository;
 use Illuminate\Support\Facades\Auth;
@@ -18,12 +21,18 @@ class WatchlistService extends ListService
      * WatchlistService constructor.
      *
      * @param TradeWatchlistRepository $repo
-     * @param TradeDetailsRepository   $detailsRepo
+     * @param TradeDetailsRepository   $tradeDetails
+     * @param IGRepositoryInterface    $igRepo
+     * @param CurrencyPairsRepository  $pairs
      */
-    public function __construct(TradeWatchlistRepository $repo, TradeDetailsRepository $detailsRepo)
+    public function __construct(
+        TradeWatchlistRepository $repo,
+        TradeDetailsRepository $tradeDetails,
+        IGRepositoryInterface $igRepo,
+        CurrencyPairsRepository $pairs
+    )
     {
-        parent::__construct($repo, $detailsRepo);
-
+        parent::__construct($repo, $tradeDetails, $igRepo, $pairs);
     }
 
     /**
@@ -44,17 +53,23 @@ class WatchlistService extends ListService
      */
     public function addCurrencyPair($pairId)
     {
-        $watchlist = $this->repository->create([
+        $pair = $this->pairs->find($pairId);
 
-        ]);
-
-        $detail = $this->tradeDetails->create([
-            'currency_pair_id' => (int)$pairId,
-            'user_id' => Auth::user()->id,
-            'entry_price' => 1.20,
-            'detailable_id' => $watchlist->id,
-            'detailable_type' => 'App\Model\TradeWatchlist'
-        ]);
+        if (!$pair) {
+            throw new \Exception("Currency pair not found, can't create trade!");
+        } else {
+            $watchlist = $this->repository->create([]);
+            $price = $this->igRepo->getCurrentPriceInformation($pair->name);
+            $detail = $this->tradeDetails->create(
+                [
+                    'currency_pair_id' => (int) $pairId,
+                    'user_id'          => Auth::user()->id,
+                    'entry_price'      => $price,
+                    'detailable_id'    => $watchlist->id,
+                    'detailable_type'  => 'App\Model\TradeWatchlist'
+                ]
+            );
+        }
 
         return $watchlist;
     }

@@ -8,9 +8,12 @@
 
 namespace App\Services\Lists;
 
+use App\Repositories\CurrencyPairs\CurrencyPairsRepository;
 use App\Repositories\CurrentTrades\CurrentTradesRepository;
+use App\Repositories\IG\IGRepositoryInterface;
 use App\Repositories\TradeDetails\TradeDetailsRepository;
 use Illuminate\Support\Facades\Auth;
+use mysql_xdevapi\Exception;
 
 class ActiveListService extends ListService
 {
@@ -19,33 +22,46 @@ class ActiveListService extends ListService
      *
      * @param CurrentTradesRepository $repo
      * @param TradeDetailsRepository  $tradeDetails
+     * @param IGRepositoryInterface   $igRepo
+     * @param CurrencyPairsRepository $pairs
      */
-    public function __construct(CurrentTradesRepository $repo, TradeDetailsRepository $tradeDetails)
+    public function __construct(
+        CurrentTradesRepository $repo,
+        TradeDetailsRepository $tradeDetails,
+        IGRepositoryInterface $igRepo,
+        CurrencyPairsRepository $pairs
+    )
     {
-        parent::__construct($repo, $tradeDetails);
-
-        $this->repository = $repo;
+        parent::__construct($repo, $tradeDetails, $igRepo, $pairs);
     }
 
     /**
      * Add currency pair to Watchlist and trade detail
      *
      * @param $pairId
+     *
      * @return mixed
+     * @throws \Exception
      */
     public function addCurrencyPair($pairId)
     {
-        $active = $this->repository->create([
+        $pair = $this->pairs->find($pairId);
 
-        ]);
-
-        $detail = $this->tradeDetails->create([
-            'currency_pair_id' => (int)$pairId,
-            'user_id' => Auth::user()->id,
-            'entry_price' => 1.20,
-            'detailable_id' => $active->id,
-            'detailable_type' => 'App\Model\CurrentTrade'
-        ]);
+        if (!$pair) {
+            throw new \Exception("Currency pair not found, can't create trade!");
+        } else {
+            $active = $this->repository->create([]);
+            $price = $this->igRepo->getCurrentPriceInformation($pair->name);
+            $detail = $this->tradeDetails->create(
+                [
+                    'currency_pair_id' => (int) $pairId,
+                    'user_id'          => Auth::user()->id,
+                    'entry_price'      => $price,
+                    'detailable_id'    => $active->id,
+                    'detailable_type'  => 'App\Model\CurrentTrade'
+                ]
+            );
+        }
 
         return $active;
     }
