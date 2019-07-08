@@ -17,8 +17,8 @@ class CreateTradeDetailsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('currency_pair_id')->nullable();//Fk - currency_pair
             $table->unsignedInteger('user_id')->nullable();//Fk - user_id
-            $table->float('entry_price');//Entry_price
-            $table->float('exit_price')->nullable();//Exit_price
+            $table->float('entry_price', 20, 5);//Entry_price
+            $table->float('exit_price', 20, 5)->nullable();//Exit_price
             $table->integer('pip_difference')->nullable();//Pip_difference
             $table->integer('detailable_id')->unsigned();
             $table->string('detailable_type');
