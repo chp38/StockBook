@@ -109,7 +109,7 @@ class IGRepository implements IGRepositoryInterface
 
         $info = json_decode($response->getBody(), true);
 
-        return $info['instrument']['currencies'][0]['baseExchangeRate'];
+        return $info['snapshot']['offer'];
     }
 
     /**
@@ -240,6 +240,8 @@ class IGRepository implements IGRepositoryInterface
 
     /**
      * Get the epic for a given currency pair
+     * TODO:
+     *     - Get from local database if it exists.
      *
      * @param String $pair
      * @return bool|String
