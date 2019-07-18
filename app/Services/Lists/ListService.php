@@ -80,7 +80,9 @@ class ListService
      *
      * @param String $listType
      * @param Int    $pairId
+     *
      * @return TradeWatchlist
+     * @throws \Exception
      */
     public function addFromHomepage($listType, $pairId)
     {
@@ -92,7 +94,7 @@ class ListService
                 $service = app()->make('\App\Services\Lists\ActiveListService');
                 break;
             default:
-                $service = app()->make('\App\Services\Lists\WatchlistService');
+                throw new \Exception("Unknown list type $listType encountered");
                 break;
         }
 
@@ -111,9 +113,20 @@ class ListService
         return $this->repository->find($id);
     }
 
-    public function calculatePipDifference(Model $trade)
+    /**
+     * Calculate the pip difference between the entry price and the
+     * current price.
+     *
+     * @param String $name  commodity name
+     * @param float  $entry entry price of the trade
+     *
+     * @return float|mixed the difference.
+     */
+    public function getPipDifference($name, $entry)
     {
-        // Calculate the pip difference for a given trade
+        $current = $this->igRepo->getCurrentPriceInformation($name);
+
+        return round($current - $entry, 5);
     }
 
     public function calculateProfit()

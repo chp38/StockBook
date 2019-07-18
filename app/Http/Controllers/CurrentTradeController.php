@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\Lists\ActiveListService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class CurrentTradeController extends Controller
 {
@@ -56,7 +57,7 @@ class CurrentTradeController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified resource - a current trade in progress
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -64,7 +65,11 @@ class CurrentTradeController extends Controller
     public function show($id)
     {
         $trade = $this->currentService->getItem($id);
+        $pipDiff = $this->currentService->getPipDifference($trade->detail->pair->name, $trade->detail->entry_price);
 
-        return view('current.item', ['trade' => $trade]);
+        return view('current.item', [
+            'trade' => $trade,
+            'pipDiff' => $pipDiff
+        ]);
     }
 }
