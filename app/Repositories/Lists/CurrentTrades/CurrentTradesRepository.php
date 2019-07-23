@@ -8,7 +8,7 @@
 
 namespace App\Repositories\Lists\CurrentTrades;
 
-use App\LRepositories\Lists\ListRepositoryInterface;
+use App\Repositories\Lists\ListRepositoryInterface;
 use App\Model\CurrentTrade;
 use App\Repositories\EloquentRepository;
 

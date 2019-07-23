@@ -1,6 +1,6 @@
 <?php
 
-namespace App\LRepositories\Lists;
+namespace App\Repositories\Lists;
 
 use App\Repositories\RepositoryInterface;
 

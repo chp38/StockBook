@@ -8,7 +8,7 @@
 
 namespace App\Repositories\Lists\TradeWatchlist;
 
-use App\LRepositories\Lists\ListRepositoryInterface;
+use App\Repositories\Lists\ListRepositoryInterface;
 use App\Model\TradeWatchlist;
 use App\Repositories\EloquentRepository;
 
