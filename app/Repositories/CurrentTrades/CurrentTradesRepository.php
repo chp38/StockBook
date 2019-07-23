@@ -22,4 +22,12 @@ class CurrentTradesRepository extends EloquentRepository implements RepositoryIn
     {
         parent::__construct($model);
     }
+
+    /**
+     * Function to take a given current trade, and close it.
+     */
+    public function closeTrade()
+    {
+        // Close the current trade
+    }
 }

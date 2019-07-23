@@ -66,4 +66,9 @@ interface RepositoryInterface
      * @return mixed
      */
     public function findWhere($field, $value);
+
+    /**
+     * Function to take a given current trade, and close it.
+     */
+    public function closeTrade();
 }

@@ -75,11 +75,11 @@ class ActiveListService extends ListService
     {
         $trade = $this->repository->find($id);
 
-        //$trade->
+        $this->repository->closeCurrentTrade($id);
+        $this->createHistoricalTrade($trade);
 
+        $historical = $this->createHistoricalTrade($trade);
         // TODO:
-            // - Current trade now becomes 'Recent'
-
         // Consider (Two flows) :
         // - Watchlist -> Current -> recent
         // - current -> recent

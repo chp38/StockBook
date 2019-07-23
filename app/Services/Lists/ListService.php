@@ -133,4 +133,37 @@ class ListService
     {
         // Calculate profit of
     }
+
+    /**
+     * Function to create a historical item, from a current
+     * trade item.
+     * protected, only to be created from CurrentService when
+     * transitioning from Current to Historical.
+     *
+     * @param Model $item
+     *
+     * @return Model
+     */
+    protected function createHistoricalTrade(Model $item) : Model
+    {
+        // Create historical through repo
+
+        return $item;
+    }
+
+    /**
+     * Function to create a current trade, from a watchlist item.
+     * protected, only to be created from WatchlistService when
+     * transitioning from watchlist to current.
+     *
+     * @param Model $item
+     *
+     * @return Model
+     */
+    protected function createCurrentTrade(Model $item) : Model
+    {
+        // create current through repo
+
+        return $item;
+    }
 }
