@@ -6,13 +6,13 @@
  * Time: 14:32
  */
 
-namespace App\Repositories\CurrentTrades;
+namespace App\Repositories\Lists\CurrentTrades;
 
+use App\LRepositories\Lists\ListRepositoryInterface;
 use App\Model\CurrentTrade;
 use App\Repositories\EloquentRepository;
-use App\Repositories\RepositoryInterface;
 
-class CurrentTradesRepository extends EloquentRepository implements RepositoryInterface
+class CurrentTradesRepository extends EloquentRepository implements ListRepositoryInterface
 {
     /**
      * TradeWatchlistRepository constructor.
@@ -25,9 +25,13 @@ class CurrentTradesRepository extends EloquentRepository implements RepositoryIn
 
     /**
      * Function to take a given current trade, and close it.
+     *
+     * @param int $id id of the trade
+     *
+     * @return bool
      */
-    public function closeTrade()
+    public function closeTrade($id): bool
     {
-        // Close the current trade
+        // TODO: Implement closeTrade() method.
     }
 }

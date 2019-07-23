@@ -9,7 +9,7 @@
 namespace App\Services\Lists;
 
 use App\Repositories\CurrencyPairs\CurrencyPairsRepository;
-use App\Repositories\CurrentTrades\CurrentTradesRepository;
+use App\Repositories\Lists\CurrentTrades\CurrentTradesRepository;
 use App\Repositories\IG\IGRepositoryInterface;
 use App\Repositories\TradeDetails\TradeDetailsRepository;
 

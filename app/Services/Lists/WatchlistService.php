@@ -9,10 +9,10 @@
  namespace App\Services\Lists;
 
 use App\Repositories\CurrencyPairs\CurrencyPairsRepository;
-use App\Repositories\CurrentTrades\CurrentTradesRepository;
+use App\Repositories\Lists\CurrentTrades\CurrentTradesRepository;
 use App\Repositories\IG\IGRepositoryInterface;
 use App\Repositories\TradeDetails\TradeDetailsRepository;
-use App\Repositories\TradeWatchlist\TradeWatchlistRepository;
+use App\Repositories\Lists\TradeWatchlist\TradeWatchlistRepository;
 use Illuminate\Support\Facades\Auth;
 
 class WatchlistService extends ListService
@@ -49,7 +49,9 @@ class WatchlistService extends ListService
      * Add currency pair to Watchlist and trade detail
      *
      * @param $pairId
+     *
      * @return mixed
+     * @throws \Exception
      */
     public function addCurrencyPair($pairId)
     {
