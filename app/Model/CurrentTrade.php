@@ -27,4 +27,11 @@ class CurrentTrade extends Model
     {
         return $this->morphOne(TradeDetail::class, 'detailable');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function watchItem() {
+        return $this->belongsTo('App\Model\TradeWatchlist', 'current_watchlist_id');
+    }
 }
