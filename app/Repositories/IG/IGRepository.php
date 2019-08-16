@@ -69,18 +69,15 @@ class IGRepository implements IGRepositoryInterface
      * Get config options for IG API
      *
      * @param CurrencyPairsRepository $pairRepository
+     * @param Client                  $client
      */
-    public function __construct(CurrencyPairsRepository $pairRepository)
+    public function __construct(CurrencyPairsRepository $pairRepository, Client $client)
     {
         $this->baseUrl = config('app.ig_api_url');
         $this->key     = config('app.ig_api_key');
         $this->user    = config('app.ig_api_user');
 
-        $this->client = $client = new Client(
-            [
-                'base_uri' => $this->baseUrl
-            ]
-        );
+        $this->client = $client;
 
         $this->pairRepository = $pairRepository;
     }
@@ -95,7 +92,7 @@ class IGRepository implements IGRepositoryInterface
     public function getCurrentPriceInformation(String $pair)
     {
         $tokens = $this->login();
-        $epic = $this->getEpic($pair);
+        $epic = $this->getEpic($pair, $tokens);
         $url = "deal/markets/" . $epic;
 
         $response = $this->client->get($url, ['headers' => [
@@ -244,11 +241,15 @@ class IGRepository implements IGRepositoryInterface
      *     - Get from local database if it exists.
      *
      * @param String $pair
+     * @param array  $tokens
+     *
      * @return bool|String
      */
-    public function getEpic(String $pair)
+    public function getEpic(String $pair, $tokens = [])
     {
-        $tokens = $this->login();
+        if (empty($tokens)) {
+            $tokens = $this->login();
+        }
         $pair = strtoupper($pair);
         $url = "deal/markets?searchTerm=" . urlencode($pair);
 
