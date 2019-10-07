@@ -20,16 +20,6 @@ abstract class TestCase extends BaseTestCase
     protected $app;
 
     /**
-     * TestCase constructor.
-     */
-    public function __construct()
-    {
-        $this->app = $this->createApplication();
-
-        parent::__construct();
-    }
-
-    /**
      * @var MockHandler
      */
     protected $mockHandler;

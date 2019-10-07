@@ -19,12 +19,9 @@ class IGRepoTest extends TestCase
      */
     private $repo;
 
-    /*
-     * Test constructor, fake out guzzle
-     */
-    public function __construct()
+    public function setUp(): void
     {
-        parent::__construct();
+        parent::setUp();
 
         $this->fakeGuzzle();
         $this->repo = $this->getIGRepository();

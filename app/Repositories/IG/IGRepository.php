@@ -118,7 +118,7 @@ class IGRepository implements IGRepositoryInterface
      */
     private function login()
     {
-        $url = "deal/session";
+        $url = $this->baseUrl . "deal/session";
         $body = '{"identifier":"'.$this->user.'","password":"'.config('app.ig_api_pass').'"}';
 
         $response = $this->client->post($url, [
@@ -175,7 +175,7 @@ class IGRepository implements IGRepositoryInterface
     {
         $tokens = $this->login();
         $epic = $this->getEpic($pair);
-        $url = "deal/prices/$epic/" . self::resolution[$interval] . "/300";
+        $url = $this->baseUrl . "deal/prices/$epic/" . self::resolution[$interval] . "/300";
 
         $response = $this->client->get($url, ['headers' => [
             'content-type' => 'application/json; charset=UTF-8',
@@ -198,7 +198,7 @@ class IGRepository implements IGRepositoryInterface
     {
         $tokens = $this->login();
         $epic = $this->getPairEpic($pair);
-        $url = "deal/prices/$epic/" . self::resolution['day'] . "/300";
+        $url = $this->baseUrl . "deal/prices/$epic/" . self::resolution['day'] . "/300";
 
         $response = $this->client->get($url, ['headers' => [
             'content-type' => 'application/json; charset=UTF-8',
@@ -221,7 +221,7 @@ class IGRepository implements IGRepositoryInterface
     {
         $tokens = $this->login();
         $epic = $this->getPairEpic($pair);
-        $url = "deal/prices/$epic/" . self::resolution['week'] . "/300";
+        $url = $this->baseUrl . "deal/prices/$epic/" . self::resolution['week'] . "/300";
 
         $response = $this->client->get($url, ['headers' => [
             'content-type' => 'application/json; charset=UTF-8',
@@ -251,7 +251,7 @@ class IGRepository implements IGRepositoryInterface
             $tokens = $this->login();
         }
         $pair = strtoupper($pair);
-        $url = "deal/markets?searchTerm=" . urlencode($pair);
+        $url = $this->baseUrl . "deal/markets?searchTerm=" . urlencode($pair);
 
         $response = $this->client->get($url, ['headers' => [
             'content-type' => 'application/json; charset=UTF-8',
