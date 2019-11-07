@@ -26,6 +26,7 @@
   </div>
 
   <p>
+    <?php dump($pipDiff) ?>
     <?php dump($trade); ?>
       <?php dump($trade->detail); ?>
     watch date - and how many days

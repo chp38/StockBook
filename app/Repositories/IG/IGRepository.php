@@ -69,18 +69,15 @@ class IGRepository implements IGRepositoryInterface
      * Get config options for IG API
      *
      * @param CurrencyPairsRepository $pairRepository
+     * @param Client                  $client
      */
-    public function __construct(CurrencyPairsRepository $pairRepository)
+    public function __construct(CurrencyPairsRepository $pairRepository, Client $client)
     {
         $this->baseUrl = config('app.ig_api_url');
         $this->key     = config('app.ig_api_key');
         $this->user    = config('app.ig_api_user');
 
-        $this->client = $client = new Client(
-            [
-                'base_uri' => $this->baseUrl
-            ]
-        );
+        $this->client = $client;
 
         $this->pairRepository = $pairRepository;
     }
@@ -95,7 +92,7 @@ class IGRepository implements IGRepositoryInterface
     public function getCurrentPriceInformation(String $pair)
     {
         $tokens = $this->login();
-        $epic = $this->getEpic($pair);
+        $epic = $this->getEpic($pair, $tokens);
         $url = "deal/markets/" . $epic;
 
         $response = $this->client->get($url, ['headers' => [
@@ -109,7 +106,7 @@ class IGRepository implements IGRepositoryInterface
 
         $info = json_decode($response->getBody(), true);
 
-        return $info['instrument']['currencies'][0]['baseExchangeRate'];
+        return $info['snapshot']['offer'];
     }
 
     /**
@@ -121,7 +118,7 @@ class IGRepository implements IGRepositoryInterface
      */
     private function login()
     {
-        $url = "deal/session";
+        $url = $this->baseUrl . "deal/session";
         $body = '{"identifier":"'.$this->user.'","password":"'.config('app.ig_api_pass').'"}';
 
         $response = $this->client->post($url, [
@@ -178,7 +175,7 @@ class IGRepository implements IGRepositoryInterface
     {
         $tokens = $this->login();
         $epic = $this->getEpic($pair);
-        $url = "deal/prices/$epic/" . self::resolution[$interval] . "/300";
+        $url = $this->baseUrl . "deal/prices/$epic/" . self::resolution[$interval] . "/300";
 
         $response = $this->client->get($url, ['headers' => [
             'content-type' => 'application/json; charset=UTF-8',
@@ -201,7 +198,7 @@ class IGRepository implements IGRepositoryInterface
     {
         $tokens = $this->login();
         $epic = $this->getPairEpic($pair);
-        $url = "deal/prices/$epic/" . self::resolution['day'] . "/300";
+        $url = $this->baseUrl . "deal/prices/$epic/" . self::resolution['day'] . "/300";
 
         $response = $this->client->get($url, ['headers' => [
             'content-type' => 'application/json; charset=UTF-8',
@@ -224,7 +221,7 @@ class IGRepository implements IGRepositoryInterface
     {
         $tokens = $this->login();
         $epic = $this->getPairEpic($pair);
-        $url = "deal/prices/$epic/" . self::resolution['week'] . "/300";
+        $url = $this->baseUrl . "deal/prices/$epic/" . self::resolution['week'] . "/300";
 
         $response = $this->client->get($url, ['headers' => [
             'content-type' => 'application/json; charset=UTF-8',
@@ -240,15 +237,21 @@ class IGRepository implements IGRepositoryInterface
 
     /**
      * Get the epic for a given currency pair
+     * TODO:
+     *     - Get from local database if it exists.
      *
      * @param String $pair
+     * @param array  $tokens
+     *
      * @return bool|String
      */
-    public function getEpic(String $pair)
+    public function getEpic(String $pair, $tokens = [])
     {
-        $tokens = $this->login();
+        if (empty($tokens)) {
+            $tokens = $this->login();
+        }
         $pair = strtoupper($pair);
-        $url = "deal/markets?searchTerm=" . urlencode($pair);
+        $url = $this->baseUrl . "deal/markets?searchTerm=" . urlencode($pair);
 
         $response = $this->client->get($url, ['headers' => [
             'content-type' => 'application/json; charset=UTF-8',

@@ -8,7 +8,6 @@
 
 namespace App\Repositories\CurrencyPairs;
 
-
 use App\Model\CurrencyPair;
 use App\Repositories\EloquentRepository;
 use App\Repositories\RepositoryInterface;

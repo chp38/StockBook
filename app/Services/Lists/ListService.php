@@ -9,10 +9,11 @@
 namespace App\Services\Lists;
 
 use App\Model\TradeWatchlist;
+use App\Repositories\CurrencyPairs\CurrencyPairsRepository;
+use App\Repositories\IG\IGRepositoryInterface;
 use App\Repositories\RepositoryInterface;
 use App\Repositories\TradeDetails\TradeDetailsRepository;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
 class ListService
@@ -23,20 +24,39 @@ class ListService
     protected $repository;
 
     /**
+     * @var IGRepositoryInterface
+     */
+    protected $igRepo;
+
+    /**
      * @var TradeDetailsRepository
      */
     protected $tradeDetails;
 
     /**
+     * @var CurrencyPairsRepository
+     */
+    protected $pairs;
+
+    /**
      * ListService constructor.
      *
-     * @param RepositoryInterface      $repository
-     * @param RepositoryInterface|null $tradeDetails
+     * @param RepositoryInterface        $repository
+     * @param RepositoryInterface|null   $tradeDetails
+     * @param IGRepositoryInterface|null $igRepo
+     * @param CurrencyPairsRepository    $pairs
      */
-    public function __construct(RepositoryInterface $repository = null, RepositoryInterface $tradeDetails = null)
+    public function __construct(
+        RepositoryInterface $repository = null,
+        RepositoryInterface $tradeDetails = null,
+        IGRepositoryInterface $igRepo = null,
+        CurrencyPairsRepository $pairs = null
+    )
     {
         $this->repository = $repository;
         $this->tradeDetails = $tradeDetails;
+        $this->igRepo = $igRepo;
+        $this->pairs = $pairs;
     }
 
     /**
@@ -60,7 +80,9 @@ class ListService
      *
      * @param String $listType
      * @param Int    $pairId
+     *
      * @return TradeWatchlist
+     * @throws \Exception
      */
     public function addFromHomepage($listType, $pairId)
     {
@@ -72,7 +94,7 @@ class ListService
                 $service = app()->make('\App\Services\Lists\ActiveListService');
                 break;
             default:
-                $service = app()->make('\App\Services\Lists\WatchlistService');
+                throw new \Exception("Unknown list type $listType encountered");
                 break;
         }
 
@@ -91,13 +113,57 @@ class ListService
         return $this->repository->find($id);
     }
 
-    public function calculatePipDifference(Model $trade)
+    /**
+     * Calculate the pip difference between the entry price and the
+     * current price.
+     *
+     * @param String $name  commodity name
+     * @param float  $entry entry price of the trade
+     *
+     * @return float|mixed the difference.
+     */
+    public function getPipDifference($name, $entry)
     {
-        // Calculate the pip difference for a given trade
+        $current = $this->igRepo->getCurrentPriceInformation($name);
+
+        return round($current - $entry, 5);
     }
 
     public function calculateProfit()
     {
         // Calculate profit of
+    }
+
+    /**
+     * Function to create a historical item, from a current
+     * trade item.
+     * protected, only to be created from CurrentService when
+     * transitioning from Current to Historical.
+     *
+     * @param Model $item
+     *
+     * @return Model
+     */
+    protected function createHistoricalTrade(Model $item) : Model
+    {
+        // Create historical through repo
+
+        return $item;
+    }
+
+    /**
+     * Function to create a current trade, from a watchlist item.
+     * protected, only to be created from WatchlistService when
+     * transitioning from watchlist to current.
+     *
+     * @param Model $item
+     *
+     * @return Model
+     */
+    protected function createCurrentTrade(Model $item) : Model
+    {
+        // create current through repo
+
+        return $item;
     }
 }
