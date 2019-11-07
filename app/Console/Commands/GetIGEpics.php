@@ -19,7 +19,7 @@ class GetIGEpics extends Command
      *
      * @var string
      */
-    protected $description = 'Command to loop all of the Currency Pairs and update the ig_epic field';
+    protected $description = 'Command to loop all of the Currency Pairs and update the ig_epic field Test';
 
     /**
      * @var CurrencyPairService
