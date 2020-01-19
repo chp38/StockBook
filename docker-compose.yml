@@ -5,7 +5,7 @@ services:
     build:
       context: ./
       dockerfile: docker/app/Dockerfile
-    working_dir: /var/www
+    working_dir: '/var/www'
     volumes:
       - ./:/var/www
     networks:
@@ -14,6 +14,7 @@ services:
       - backend
     depends_on:
       - database
+      - web
     environment:
       - "APP_NAME=app"
       - "APP_URL=http://localhost:8080"
@@ -21,6 +22,7 @@ services:
       - "DB_USERNAME=homestead"
       - "DB_HOST=database"
       - "DB_PASSWORD=secret"
+    command: bash
 
   # NGINX
   web:
@@ -30,8 +32,6 @@ services:
     working_dir: /var/www
     networks:
       - frontend
-    depends_on:
-      - app
     volumes:
       - ./public:/var/www/public
     ports:
