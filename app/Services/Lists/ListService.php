@@ -144,7 +144,7 @@ class ListService
      *
      * @return Model
      */
-    protected function createHistoricalTrade(Model $item) : Model
+    protected function transitionHistoricalTrade(Model $item) : Model
     {
         // Create historical through repo
 
@@ -160,7 +160,7 @@ class ListService
      *
      * @return Model
      */
-    protected function createCurrentTrade(Model $item) : Model
+    protected function transitionCurrentTrade(Model $item) : Model
     {
         // create current through repo
 
