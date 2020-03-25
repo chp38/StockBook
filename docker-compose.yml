@@ -22,7 +22,6 @@ services:
       - "DB_USERNAME=homestead"
       - "DB_HOST=database"
       - "DB_PASSWORD=secret"
-    command: bash
 
   # NGINX
   web:
