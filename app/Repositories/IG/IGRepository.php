@@ -93,7 +93,7 @@ class IGRepository implements IGRepositoryInterface
     {
         $tokens = $this->login();
         $epic = $this->getEpic($pair, $tokens);
-        $url = "deal/markets/" . $epic;
+        $url = $this->baseUrl . "deal/markets/" . $epic;
 
         $response = $this->client->get($url, ['headers' => [
             'content-type' => 'application/json; charset=UTF-8',

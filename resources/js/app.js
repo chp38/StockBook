@@ -5,11 +5,11 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
-require('./sb-admin');
+require("./bootstrap");
+require("./sb-admin");
 //Chart = require('chart.js');
 
-require('./chart');
+require("./chart");
 
  // window.Vue = require('vue');
 
@@ -24,9 +24,9 @@ require('./chart');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
- window.Vue = require('vue');
- Vue.component('example-component', require('./components/ExampleComponent.vue').default);
- Vue.component('watchlist-items', require('./components/WatclistItemsComponent.vue').default);
+ window.Vue = require("vue");
+ Vue.component("example-component", require("./components/ExampleComponent.vue").default);
+ Vue.component("watchlist-items", require("./components/WatclistItemsComponent.vue").default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -35,5 +35,5 @@ require('./chart');
  */
 
 const app = new Vue({
-    el: '#app'
+    el: "#app"
 });
