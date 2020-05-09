@@ -11,13 +11,21 @@
                 </div>
             </div>
         </div>
+      <div>
+        {{ message }}
+      </div>
     </div>
 </template>
 
 <script>
     export default {
-        mounted() {
-            console.log('Component mounted.')
+      data() {
+        return {
+          message: 'Hello Vue!'
         }
+      },
+      mounted() {
+        console.log('Component mounted.')
+      }
     }
 </script>

@@ -92,7 +92,7 @@ class CurrencyPairService
         $pair = $this->repository->find($id);
 
         if ($pair instanceof CurrencyPair) {
-            return $this->igrepository->getIntraDayInformation($pair->name, '5min');
+            return $this->igrepository->getIntraDayInformation($pair->name, 'hour');
         }
 
         return false;

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+docker-compose build
+docker-compose up -d
+
+sleep 10
+docker exec -it stockbook_app_1 php artisan migrate:fresh --seed

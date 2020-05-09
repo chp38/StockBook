@@ -34,6 +34,12 @@ require("./chart");
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+import App from './components/ExampleComponent.vue';
+
 const app = new Vue({
-    el: "#app"
+  el: '#app',
+  components: {
+    App
+  },
+  render: h => h(App)
 });
