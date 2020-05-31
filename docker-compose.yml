@@ -15,7 +15,6 @@ services:
       - backend
     depends_on:
       - database
-      - web
     environment:
       - "APP_NAME=app"
       - "APP_URL=http://localhost:8080"
@@ -37,6 +36,8 @@ services:
       - ./public:/var/www/public
     ports:
       - 8089:80
+    depends_on:
+      - app
 
   # The database
   database:
