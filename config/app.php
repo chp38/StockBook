@@ -233,7 +233,7 @@ return [
     */
 
     'alpha_vantage_url' => env('ALPHA_VANTAGE_URL', 'https://www.alphavantage.co/'),
-    'alpha_vantage_key' => env('ALPHA_VANTAGE_KEY', 'YC8VVZQTBQZPJG27'),
+    'alpha_vantage_key' => env('ALPHA_VANTAGE_KEY', 'KEY'),
 
     'ig_api_url' => env('IG_API_URL', 'https://api.ig.com/gateway/'),
     'ig_api_key' => env('IG_API_KEY', 'KEY'),
