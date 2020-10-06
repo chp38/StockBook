@@ -9,12 +9,6 @@
         <li class="breadcrumb-item active">Overview</li>
     </ol>
 
-
-    <div id="app">
-
-    </div>
-
-
     <!-- Icon Cards-->
     <div class="row">
         <div class="col-xl-4 mb-3">

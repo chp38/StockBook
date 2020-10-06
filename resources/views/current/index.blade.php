@@ -11,7 +11,7 @@
     </ol>
 
     <div class="card-deck" id="app">
-        <!--<example-component></example-component>-->
+
         @foreach($trades as $item)
             <div class="card border-primary mb-3" style="max-width: 18rem;">
                 <div class="card-header">

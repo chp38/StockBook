@@ -38,8 +38,4 @@ import App from './components/ExampleComponent.vue';
 
 const app = new Vue({
   el: '#app',
-  components: {
-    App
-  },
-  render: h => h(App)
 });
