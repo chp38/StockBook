@@ -1,0 +1,9 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /StockBook
+AfterInstall:
+  - location: ./run
+    timeout: 300
+    runas: root
