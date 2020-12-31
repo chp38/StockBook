@@ -5,3 +5,4 @@ files:
     destination: /home/ubuntu/StockBook
 AfterInstall:
   - location: deploy.sh
+    runas: root
