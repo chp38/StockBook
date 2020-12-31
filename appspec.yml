@@ -4,6 +4,6 @@ files:
   - source: /
     destination: /StockBook
 AfterInstall:
-  - location: ./run
+  - location: deploy.sh
     timeout: 300
     runas: root
