@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class ExpertAdvisor extends Controller
+class ExpertAdvisorController extends Controller
 {
     private $tokens = [
         'Charles',
