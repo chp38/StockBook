@@ -22,3 +22,5 @@ Route::apiResource('currency/pairs', 'Api\CurrencyPairsApiController')->except([
 ]);
 
 Route::get('currency/pairs/prices/{id}', 'Api\CurrencyPairsApiController@getPairPrices');
+
+Route::get('eas/auth', 'Api\ExpertAdvisorController@auth');
