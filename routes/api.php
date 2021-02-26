@@ -17,10 +17,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('eas/auth', 'Api\ExpertAdvisorController@auth');
+
 Route::apiResource('currency/pairs', 'Api\CurrencyPairsApiController')->except([
     'store', 'update', 'destroy'
 ]);
 
 Route::get('currency/pairs/prices/{id}', 'Api\CurrencyPairsApiController@getPairPrices');
-
-Route::get('eas/auth', 'Api\ExpertAdvisorController@auth');

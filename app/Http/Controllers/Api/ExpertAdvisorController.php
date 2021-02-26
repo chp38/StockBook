@@ -21,8 +21,6 @@ class ExpertAdvisorController extends Controller
     {
         $token = $request->input('token');
 
-        return in_array($token);
-
         return response()->json([
             'valid' => in_array($token, $this->tokens)
         ]);
