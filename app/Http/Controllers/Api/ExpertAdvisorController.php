@@ -8,8 +8,8 @@ use App\Http\Controllers\Controller;
 class ExpertAdvisorController extends Controller
 {
     private $tokens = [
-        'Charles',
-        'Edward'
+        'Charles-token',
+        'edward'
     ];
 
     /**
