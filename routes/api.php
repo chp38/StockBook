@@ -17,7 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('eas/auth', 'Api\ExpertAdvisorController@auth');
+Route::get('aes', 'Api\ExpertAdvisorController@auth');
 
 Route::apiResource('currency/pairs', 'Api\CurrencyPairsApiController')->except([
     'store', 'update', 'destroy'
