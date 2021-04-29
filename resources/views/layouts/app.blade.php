@@ -71,7 +71,7 @@
         </div>
     </div>
 </div>
-<script src="http://d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="/js/app.js"></script>
 
 </body>
