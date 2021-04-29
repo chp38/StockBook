@@ -15,13 +15,6 @@ services:
       - backend
     depends_on:
       - database
-    environment:
-      - "APP_NAME=app"
-      - "APP_URL=http://localhost:8080"
-      - "DB_DATABASE=homestead"
-      - "DB_USERNAME=homestead"
-      - "DB_HOST=database"
-      - "DB_PASSWORD=secret"
 
   # NGINX
   web:
