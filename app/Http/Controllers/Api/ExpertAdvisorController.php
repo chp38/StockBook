@@ -45,6 +45,7 @@ class ExpertAdvisorController extends Controller
 
         $token->order_id = $request->get('order_id');
         $token->token = $request->get('token');
+        $token->email = $request->get('email');
 
         $token->save();
 

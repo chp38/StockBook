@@ -27,7 +27,10 @@
                     <label class="small mb-1" for="token">Token</label>
                     <input class="form-control py-4" id="token" name="token" type="text" placeholder="Token"/>
                 </div>
-
+                <div class="form-group">
+                    <label class="small mb-1" for="token">Email</label>
+                    <input class="form-control py-4" id="email" name="email" type="email" placeholder="Email"/>
+                </div>
                 <input type="submit" class="btn btn-primary"/>
             </form>
         </div>
@@ -45,6 +48,7 @@
                                             <tr>
                                                 <th>Order ID</th>
                                                 <th>Token</th>
+                                                <th>Email</th>
                                                 <th>Remove</th>
                                             </tr>
                                         </thead>
@@ -52,6 +56,7 @@
                                             <tr>
                                                 <th>Order ID</th>
                                                 <th>Token</th>
+                                                <th>Email</th>
                                                 <th>Remove</th>
                                             </tr>
                                         </tfoot>
@@ -60,6 +65,7 @@
                                                 <tr>
                                                     <th>{{ $token->order_id }}</th>
                                                     <th>{{ $token->token }}</th>
+                                                    <th>{{ $token->email }}</th>
                                                     <th>
                                                         <form action="/manage/tokens/{{ $token->id }}" method="POST">
                                                         @csrf
