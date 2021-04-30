@@ -39,6 +39,10 @@ Route::middleware(['auth'])->group(function () {
     // logout
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
+    // Manage Tokens
+    Route::get('/manage/tokens', 'Api\ExpertAdvisorController@index')->name('manage-tokens');
+    Route::post('/manage/tokens', 'Api\ExpertAdvisorController@store')->name('add-token');
+    Route::POST('/manage/tokens/{id}', 'Api\ExpertAdvisorController@destroy')->name('delete-token');
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {

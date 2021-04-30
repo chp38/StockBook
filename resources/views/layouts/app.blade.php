@@ -37,7 +37,7 @@
         <footer class="sticky-footer">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                    <span>Copyright © Stock Book 2018</span>
+                    <span>Copyright © Stock Book 2021</span>
                 </div>
             </div>
         </footer>
@@ -73,5 +73,7 @@
 </div>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="/js/app.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
 
 </body>

@@ -30,4 +30,10 @@
             <span>Charts</span>
         </a>
     </li>
+    <li class="nav-item {{\Route::current()->getName() == 'tokens' ? 'active' : ''}}">
+        <a class="nav-link" href="/manage/tokens">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Manage Tokens</span>
+        </a>
+    </li>
 </ul>
