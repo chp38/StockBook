@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGoldEaTokensTable extends Migration
+class CreateVideosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreateGoldEaTokensTable extends Migration
      */
     public function up()
     {
-        Schema::create('gold_ea_tokens', function (Blueprint $table) {
+        Schema::create('videos', function (Blueprint $table) {
+            $table->softDeletes();
             $table->increments('id');
-            $table->string('token')->unique();
-            $table->string('order_id')->unique();
+            $table->string('title');
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->string('video_path');
             $table->timestamps();
         });
     }
@@ -28,6 +31,6 @@ class CreateGoldEaTokensTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gold_ea_tokens');
+        Schema::dropIfExists('videos');
     }
 }
