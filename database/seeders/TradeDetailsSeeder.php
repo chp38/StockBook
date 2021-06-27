@@ -1,8 +1,11 @@
 <?php
 
-use Illuminate\Database\Seeder;
+namespace Database\Seeders;
 
-class UserSeeder extends Seeder
+use Illuminate\Database\Seeder;
+use \App\Model\TradeDetail;
+
+class TradeDetailsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +14,6 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        factory('App\Model\User')->create();
+        TradeDetail::factory()->create();
     }
 }

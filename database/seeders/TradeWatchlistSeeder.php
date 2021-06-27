@@ -1,8 +1,11 @@
 <?php
 
-use Illuminate\Database\Seeder;
+namespace Database\Seeders;
 
-class TradeDetailsSeeder extends Seeder
+use Illuminate\Database\Seeder;
+use \App\Model\TradeWatchlist;
+
+class TradeWatchlistSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +14,6 @@ class TradeDetailsSeeder extends Seeder
      */
     public function run()
     {
-        factory('App\Model\TradeDetail')->create();
+        TradeWatchlist::factory()->create();
     }
 }

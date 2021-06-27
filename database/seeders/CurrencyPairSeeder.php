@@ -1,6 +1,9 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
+use \App\Model\CurrencyPair;
 
 class CurrencyPairSeeder extends Seeder
 {
@@ -11,19 +14,19 @@ class CurrencyPairSeeder extends Seeder
      */
     public function run()
     {
-        factory('App\Model\CurrencyPair')->create([
+        CurrencyPair::factory()->create([
             'name' => 'USD/JPY'
         ]);
 
-        factory('App\Model\CurrencyPair')->create([
+        CurrencyPair::factory()->create([
             'name' => 'GBP/USD'
         ]);
 
-        factory('App\Model\CurrencyPair')->create([
+        CurrencyPair::factory()->create([
             'name' => 'AUD/CAD'
         ]);
 
-        factory('App\Model\CurrencyPair')->create([
+        CurrencyPair::factory()->create([
             'name' => 'EUR/USD'
         ]);
     }
