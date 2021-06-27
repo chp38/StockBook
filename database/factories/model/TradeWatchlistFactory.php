@@ -1,14 +1,32 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Model;
 
+use App\Model\TradeWatchlist;
+use App\Model\TradeDetail;
 use Faker\Generator as Faker;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(App\Model\TradeWatchlist::class, function (Faker $faker) {
-    return [
-        'trade_details_id' => function() {
-            return factory('App\Model\TradeDetail')->create()->id;
-        }
-    ];
-});
+class TradeWatchlistFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = TradeWatchlist::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'trade_details_id' => function() {
+                return TradeDetail::factory()->create()->id;
+            }
+        ];
+    }
+}
